@@ -1,6 +1,18 @@
 # My Dorm
 ## Your All-in-One Dormitory Management Solution
 
+## Быстрый запуск (Docker)
+
+```bash
+git clone https://github.com/nori688/project-for-salim.git
+cd project-for-salim
+docker compose up -d --build
+```
+
+Приложение будет доступно на http://localhost:8080
+
+Остановить: `docker compose down`
+
 According to observations, many students face difficulties in obtaining up-to-date information regarding their check-in/check-out status, received packages, and important announcements from the dormitory.
 
 My Dorm offers a smart solution for dormitory management at Telkom University. It provides comprehensive features such as resident check-in/check-out logging, package management, violation tracking, and announcements.

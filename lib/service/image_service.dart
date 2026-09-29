@@ -1,4 +1,3 @@
-import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -31,7 +30,7 @@ class MyNetworkImage extends StatelessWidget {
           children: [
             Icon(Icons.image_not_supported),
             Text(
-              'No image available',
+              'Нет изображения',
               textAlign: TextAlign.center,
             )
           ],
@@ -65,7 +64,7 @@ class MyNetworkImage extends StatelessWidget {
           children: [
             const Icon(Icons.image_not_supported),
             Text(
-              'Failed to load image',
+              'Не удалось загрузить изображение',
               textAlign: TextAlign.center,
               style: kRegularTextStyle.copyWith(fontSize: 10),
             )
@@ -77,23 +76,23 @@ class MyNetworkImage extends StatelessWidget {
 }
 
 class ImageService {
-  File? selectedImage;
+  XFile? selectedImage;
   final ImagePicker _picker = ImagePicker();
 
-  File? getSelectedImage() {
+  XFile? getSelectedImage() {
     return selectedImage;
   }
 
-  Future<String> pickImage() async {
+  Future<XFile?> pickImage() async {
     final XFile? pickedFile =
         await _picker.pickImage(source: ImageSource.gallery);
 
     if (pickedFile != null) {
-      selectedImage = File(pickedFile.path);
-      return pickedFile.path;
+      selectedImage = pickedFile;
+      return pickedFile;
     } else {
-      print("No image selected");
-      return '';
+      print("Изображение не выбрано");
+      return null;
     }
   }
 

@@ -38,7 +38,7 @@ class _ListPaketPageSRState extends State<ListPaketPageSR> {
 
   String formatTanggal(String tanggal) {
     DateTime dateTime = DateTime.parse(tanggal).toLocal();
-    return DateFormat('dd MMM yyyy, HH:mm').format(dateTime);
+    return DateFormat('dd MMM yyyy, HH:mm', 'ru_RU').format(dateTime);
   }
 
   Future<void> getPaket({String? search}) async {
@@ -62,7 +62,7 @@ class _ListPaketPageSRState extends State<ListPaketPageSR> {
           pakets = (response['data'] as List)
               .map((item) => item as Map<String, dynamic>)
               .toList();
-          print('Data Paket: $pakets');
+          print('Посылки: $pakets');
           pakets_belum = [];
           pakets_sudah = [];
           for (int i = 0; i < pakets.length; i++) {
@@ -75,13 +75,13 @@ class _ListPaketPageSRState extends State<ListPaketPageSR> {
         });
       } else {
         setState(() {
-          error = "Data paket dormitizen kosong.";
+          error = "Нет данных о посылках.";
         });
       }
     } catch (e) {
       print(e);
       setState(() {
-        error = "Error: $e";
+        error = "Ошибка: $e";
       });
     }
     setState(() {
@@ -97,11 +97,11 @@ class _ListPaketPageSRState extends State<ListPaketPageSR> {
     try {
       await deleteDataToken('/paket/$id');
 
-      print('Paket dengan ID $id berhasil dihapus');
+      print('Посылка с ID $id успешно удалена');
     } catch (e) {
       print(e);
       setState(() {
-        error = "Error: $e";
+        error = "Ошибка: $e";
       });
     } finally {
       setState(() {
@@ -118,11 +118,11 @@ class _ListPaketPageSRState extends State<ListPaketPageSR> {
     try {
       await updateDataTokenTanpaBody('/paket/$id');
 
-      print('Paket dengan ID $id berhasil diupdate');
+      print('Посылка с ID $id успешно обновлена');
     } catch (e) {
       print(e);
       setState(() {
-        error = "Error: $e";
+        error = "Ошибка: $e";
       });
     } finally {
       setState(() {
@@ -179,7 +179,7 @@ class _ListPaketPageSRState extends State<ListPaketPageSR> {
                   Positioned(
                     bottom: 8,
                     left: 8,
-                    child: Text("Ketuk untuk memperbesar",
+                    child: Text("Нажмите, чтобы увеличить",
                         style: kSemiBoldTextStyle.copyWith(
                             fontSize: 12, color: kWhite)),
                   ),
@@ -195,7 +195,7 @@ class _ListPaketPageSRState extends State<ListPaketPageSR> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Icon(
+                  const FaIcon(
                     FontAwesomeIcons.locationPin,
                     size: 18,
                     color: kRed,
@@ -204,12 +204,12 @@ class _ListPaketPageSRState extends State<ListPaketPageSR> {
                   Expanded(
                       child: paket['status_pengambilan'] == "belum"
                           ? Text(
-                              "Helpdesk",
+                              "Хелпдеск",
                               style: kSemiBoldTextStyle.copyWith(
                                   fontSize: 12, color: kRed),
                             )
                           : Text(
-                              "Kamar ${paket['pemilik_paket']['kamar']['nomor']}",
+                              "Комната ${paket['pemilik_paket']['kamar']['nomor']}",
                               style: kSemiBoldTextStyle.copyWith(
                                   fontSize: 12, color: kRed),
                             ))
@@ -221,7 +221,7 @@ class _ListPaketPageSRState extends State<ListPaketPageSR> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Icon(
+                  const FaIcon(
                     FontAwesomeIcons.solidCircleUser,
                     size: 18,
                   ),
@@ -229,7 +229,7 @@ class _ListPaketPageSRState extends State<ListPaketPageSR> {
                   if (paket['penerima_paket']['nama'] != null)
                     Expanded(
                       child: Text(
-                        "${paket['penerima_paket']['nama']} (Pj Penerimaan)",
+                        "${paket['penerima_paket']['nama']} (ответственный за приём)",
                         style: kSemiBoldTextStyle.copyWith(fontSize: 12),
                       ),
                     )
@@ -239,7 +239,7 @@ class _ListPaketPageSRState extends State<ListPaketPageSR> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const Icon(
+                    const FaIcon(
                       FontAwesomeIcons.solidCircleUser,
                       size: 18,
                     ),
@@ -247,7 +247,7 @@ class _ListPaketPageSRState extends State<ListPaketPageSR> {
                     if (paket['penyerah_paket']['nama'] != null)
                       Expanded(
                         child: Text(
-                          "${paket['penyerah_paket']['nama']} (Pj Penerimaan)",
+                          "${paket['penyerah_paket']['nama']} (ответственный за приём)",
                           style: kSemiBoldTextStyle.copyWith(fontSize: 12),
                         ),
                       )
@@ -264,7 +264,7 @@ class _ListPaketPageSRState extends State<ListPaketPageSR> {
                     size: 18,
                   ),
                   const SizedBox(width: 5),
-                  Text("${formatTanggal(paket['waktu_tiba'])} (Diterima)"),
+                  Text("${formatTanggal(paket['waktu_tiba'])} (получена)"),
                 ],
               ),
               if (paket['status_pengambilan'] == "sudah")
@@ -281,7 +281,7 @@ class _ListPaketPageSRState extends State<ListPaketPageSR> {
                     ),
                     const SizedBox(width: 5),
                     Text(
-                        "${formatTanggal(paket['waktu_diambil'])} (Diserahkan)"),
+                        "${formatTanggal(paket['waktu_diambil'])} (вручена)"),
                   ],
                 ),
             ],
@@ -311,7 +311,7 @@ class _ListPaketPageSRState extends State<ListPaketPageSR> {
         body: SingleChildScrollView(
           child: Column(children: [
             AppBarPage(
-              title: 'Paket',
+              title: 'Посылки',
               onAdd: (role == 'helpdesk')
                   ? () {
                       _navigateAndDisplayResult(context);
@@ -340,7 +340,7 @@ class _ListPaketPageSRState extends State<ListPaketPageSR> {
                               child: TextField(
                             controller: _searchController,
                             decoration: const InputDecoration(
-                                hintText: 'nama penerima',
+                                hintText: 'имя получателя',
                                 border: InputBorder.none,
                                 isDense: true),
                             onChanged: (value) {
@@ -372,7 +372,7 @@ class _ListPaketPageSRState extends State<ListPaketPageSR> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Text(
-                    'Paket belum diambil :',
+                    'Посылки не получены:',
                     style: kBoldTextStyle.copyWith(fontSize: 14),
                   ),
                   const SizedBox(
@@ -403,7 +403,7 @@ class _ListPaketPageSRState extends State<ListPaketPageSR> {
                     height: 10,
                   ),
                   Text(
-                    'Paket sudah diambil :',
+                    'Посылки получены:',
                     style: kBoldTextStyle.copyWith(fontSize: 14),
                   ),
                   (_showSpinner)

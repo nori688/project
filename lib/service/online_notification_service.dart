@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:io';
 import 'package:flutter/services.dart';
 import 'package:googleapis/androidenterprise/v1.dart';
 import 'package:my_dorm/constant/constant.dart';
@@ -38,7 +37,7 @@ class MyNotificationService {
 
       return credentials.accessToken.data;
     } catch (e) {
-      print("Error getting access token: $e");
+      print("Ошибка получения токена доступа: $e");
       rethrow;
     }
   }
@@ -73,12 +72,12 @@ class MyNotificationService {
       );
 
       if (response.statusCode == 200) {
-        print("Notification sent successfully.");
+        print("Уведомление успешно отправлено.");
       } else {
-        print("Failed to send Notification: ${response.statusCode}");
+        print("Не удалось отправить уведомление: ${response.statusCode}");
       }
     } catch (e) {
-      print("Error sending notification: $e");
+      print("Ошибка отправки уведомления: $e");
     }
   }
 
@@ -112,13 +111,13 @@ class MyNotificationService {
       );
 
       if (response.statusCode == 200) {
-        print("Notification sent successfully to all users.");
+        print("Уведомления успешно отправлены всем пользователям.");
       } else {
         print(
-            "Failed to send Notification to all users: ${response.statusCode}");
+            "Не удалось отправить уведомление всем пользователям: ${response.statusCode}");
       }
     } catch (e) {
-      print("Error sending notification to all users: $e");
+      print("Ошибка отправки уведомления всем пользователям: $e");
     }
   }
 }

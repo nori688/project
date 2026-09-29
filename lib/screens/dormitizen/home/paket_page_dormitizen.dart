@@ -32,7 +32,7 @@ class _PaketPageDormitizenState extends State<PaketPageDormitizen> {
 
   String formatTanggal(String tanggal) {
     DateTime dateTime = DateTime.parse(tanggal).toLocal();
-    return DateFormat('dd MMM yyyy, HH:mm').format(dateTime);
+    return DateFormat('dd MMM yyyy, HH:mm', 'ru_RU').format(dateTime);
   }
 
   Future<void> getPaket() async {
@@ -53,7 +53,7 @@ class _PaketPageDormitizenState extends State<PaketPageDormitizen> {
               .map((item) => item as Map<String, dynamic>)
               .toList();
         });
-        print('Data Paket: $pakets');
+        print('Посылки: $pakets');
 
         for (int i = 0; i < pakets.length; i++) {
           if (pakets[i]["status_pengambilan"] == "belum") {
@@ -64,13 +64,13 @@ class _PaketPageDormitizenState extends State<PaketPageDormitizen> {
         }
       } else {
         setState(() {
-          error = "Data paket dormitizen kosong.";
+          error = "Нет данных о посылках.";
         });
       }
     } catch (e) {
       print(e);
       setState(() {
-        error = "Error: $e";
+        error = "Ошибка: $e";
       });
     }
     setState(() {
@@ -126,7 +126,7 @@ class _PaketPageDormitizenState extends State<PaketPageDormitizen> {
                   Positioned(
                     bottom: 8,
                     left: 8,
-                    child: Text("Ketuk untuk memperbesar",
+                    child: Text("Нажмите, чтобы увеличить",
                         style: kSemiBoldTextStyle.copyWith(
                             fontSize: 12, color: kWhite)),
                   ),
@@ -141,7 +141,7 @@ class _PaketPageDormitizenState extends State<PaketPageDormitizen> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    const Icon(
+                    const FaIcon(
                       FontAwesomeIcons.locationPin,
                       size: 18,
                       color: kRed,
@@ -149,7 +149,7 @@ class _PaketPageDormitizenState extends State<PaketPageDormitizen> {
                     const SizedBox(width: 5),
                     Expanded(
                         child: Text(
-                      "Helpdesk",
+                      "Хелпдеск",
                       style: kSemiBoldTextStyle.copyWith(
                           fontSize: 12, color: kRed),
                     ))
@@ -161,7 +161,7 @@ class _PaketPageDormitizenState extends State<PaketPageDormitizen> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Icon(
+                  const FaIcon(
                     FontAwesomeIcons.solidCircleUser,
                     size: 18,
                   ),
@@ -169,7 +169,7 @@ class _PaketPageDormitizenState extends State<PaketPageDormitizen> {
                   if (paket['penerima_paket']['nama'] != null)
                     Expanded(
                       child: Text(
-                        "${paket['penerima_paket']['nama']} (Pj Penerimaan)",
+                        "${paket['penerima_paket']['nama']} (ответственный за приём)",
                         style: kSemiBoldTextStyle.copyWith(fontSize: 12),
                       ),
                     )
@@ -179,7 +179,7 @@ class _PaketPageDormitizenState extends State<PaketPageDormitizen> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    const Icon(
+                    const FaIcon(
                       FontAwesomeIcons.solidCircleUser,
                       size: 18,
                     ),
@@ -187,7 +187,7 @@ class _PaketPageDormitizenState extends State<PaketPageDormitizen> {
                     if (paket['penyerah_paket']['nama'] != null)
                       Expanded(
                         child: Text(
-                          "${paket['penyerah_paket']['nama']} (Pj Penerimaan)",
+                          "${paket['penyerah_paket']['nama']} (ответственный за приём)",
                           style: kSemiBoldTextStyle.copyWith(fontSize: 12),
                         ),
                       )
@@ -206,7 +206,7 @@ class _PaketPageDormitizenState extends State<PaketPageDormitizen> {
                   const SizedBox(width: 5),
                   Expanded(
                       child: Text(
-                          "${formatTanggal(paket['waktu_tiba'])} (Diterima)")),
+                          "${formatTanggal(paket['waktu_tiba'])} (получена)")),
                 ],
               ),
               if (paket['status_pengambilan'] == "sudah")
@@ -224,7 +224,7 @@ class _PaketPageDormitizenState extends State<PaketPageDormitizen> {
                     const SizedBox(width: 5),
                     Expanded(
                       child: Text(
-                          "${formatTanggal(paket['waktu_diambil'])} (Diserahkan)"),
+                          "${formatTanggal(paket['waktu_diambil'])} (вручена)"),
                     ),
                   ],
                 ),
@@ -262,12 +262,12 @@ class _PaketPageDormitizenState extends State<PaketPageDormitizen> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            'Paket kamu akan',
+                            'Твои посылки будут',
                             style: kSemiBoldTextStyle.copyWith(
                                 color: kWhite, fontSize: 15),
                           ),
                           Text(
-                            'Teracatat di sini!',
+                            'Записаны здесь!',
                             style: kSemiBoldTextStyle.copyWith(
                                 color: kWhite, fontSize: 15),
                           ),
@@ -283,7 +283,7 @@ class _PaketPageDormitizenState extends State<PaketPageDormitizen> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            'Cari Paket :',
+                            'Поиск посылки:',
                             style: kSemiBoldTextStyle.copyWith(
                                 fontSize: 14, color: kWhite),
                           ),
@@ -299,7 +299,7 @@ class _PaketPageDormitizenState extends State<PaketPageDormitizen> {
                             child: const TextField(
                               decoration: InputDecoration(
                                   border: InputBorder.none,
-                                  hintText: 'Nama Barang',
+                                  hintText: 'Название товара',
                                   prefixIcon: Icon(Icons.search),
                                   prefixIconColor: kBlueGrey),
                             ),
@@ -318,7 +318,7 @@ class _PaketPageDormitizenState extends State<PaketPageDormitizen> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Text(
-                    'Paket belum diambil :',
+                    'Посылки не получены:',
                     style: kBoldTextStyle.copyWith(fontSize: 14),
                   ),
                   const SizedBox(
@@ -346,7 +346,7 @@ class _PaketPageDormitizenState extends State<PaketPageDormitizen> {
                     height: 10,
                   ),
                   Text(
-                    'Paket sudah diambil :',
+                    'Посылки получены:',
                     style: kBoldTextStyle.copyWith(fontSize: 14),
                   ),
                   (_showSpinner)

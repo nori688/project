@@ -122,7 +122,7 @@ void confirmDialog(BuildContext context, String title, String subtitle,
                   SizedBox(
                       width: 120,
                       child: GradientButton(
-                          ontap: onConfirm ?? () {}, title: "Iya")),
+                          ontap: onConfirm ?? () {}, title: "Да")),
                   const SizedBox(
                     width: 5,
                   ),
@@ -132,7 +132,7 @@ void confirmDialog(BuildContext context, String title, String subtitle,
                           ontap: () {
                             Navigator.of(context).pop();
                           },
-                          title: "Batal"))
+                          title: "Отмена"))
                 ],
               )
             ],

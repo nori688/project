@@ -22,10 +22,10 @@ class _ListInformasiPageState extends State<ListInformasiPage> {
   bool _showSpinner = false;
   String? _selectedKategori;
   final List<Map<String, String>> _kategoriList = [
-    {'label': 'Fasilitas asrama', 'value': 'fasilitas asrama'},
-    {'label': 'Event asrama', 'value': 'event asrama'},
-    {'label': 'Lingkungan asrama', 'value': 'lingkungan asrama'},
-    {'label': 'Peraturan asrama', 'value': 'peraturan asrama'},
+    {'label': 'Удобства общежития', 'value': 'удобства общежития'},
+    {'label': 'Мероприятия общежития', 'value': 'мероприятия общежития'},
+    {'label': 'Жизнь общежития', 'value': 'жизнь общежития'},
+    {'label': 'Правила общежития', 'value': 'правила общежития'},
   ];
   final TextEditingController _searchController = TextEditingController();
   @override
@@ -69,7 +69,7 @@ class _ListInformasiPageState extends State<ListInformasiPage> {
     } catch (e) {
       print(e);
       setState(() {
-        error = "Error: $e";
+        error = "Ошибка: $e";
       });
     } finally {
       setState(() {
@@ -97,7 +97,7 @@ class _ListInformasiPageState extends State<ListInformasiPage> {
     });
     try {
       var response = await deleteDataToken('/informasi/$informasiId');
-      if (response['message'] == 'Informasi berhasil dihapus') {
+      if (response['message'] == 'Информация успешно удалена') {
         setState(() {
           informasis.removeWhere(
               (informasi) => informasi['informasi_id'] == informasiId);
@@ -105,13 +105,13 @@ class _ListInformasiPageState extends State<ListInformasiPage> {
         Navigator.pop(context);
       } else {
         setState(() {
-          error = "Gagal menghapus pelanggaran";
+          error = "Не удалось удалить нарушение";
         });
       }
     } catch (e) {
       print(e);
       setState(() {
-        error = "Error: $e";
+        error = "Ошибка: $e";
       });
     } finally {
       setState(() {
@@ -127,7 +127,7 @@ class _ListInformasiPageState extends State<ListInformasiPage> {
       builder: (context) {
         return AlertDialog(
           title: const Text(
-            'Aksi Informasi',
+            'Действия с информацией',
             style: kBoldTextStyle,
           ),
           backgroundColor: kWhite,
@@ -136,7 +136,7 @@ class _ListInformasiPageState extends State<ListInformasiPage> {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                const Text('Aksi apa yang ingin Anda lakukan?'),
+                const Text('Какое действие вы хотите выполнить?'),
                 const SizedBox(height: 10),
                 GradientButton(
                   ontap: () async {
@@ -150,18 +150,18 @@ class _ListInformasiPageState extends State<ListInformasiPage> {
                       refresh();
                     }
                   },
-                  title: "EDIT",
+                  title: "ИЗМЕНИТЬ",
                 ),
                 const SizedBox(height: 10),
                 OutlineButton(
                     ontap: () {
-                      confirmDialog(context, "Konfirmasi Penghapusan",
-                          "Apakah anda yakin ingin menghapus informasi ini?",
+                      confirmDialog(context, "Подтверждение удаления",
+                          "Вы уверены, что хотите удалить эту информацию?",
                           () {
                         _deleteInformasi(item['informasi_id']);
                       });
                     },
-                    title: "DELETE"),
+                    title: "УДАЛИТЬ"),
               ],
             ),
           ),
@@ -176,7 +176,7 @@ class _ListInformasiPageState extends State<ListInformasiPage> {
       body: Column(
         children: [
           AppBarPage(
-            title: 'Informasi',
+            title: 'Информация',
             onAdd: () {
               _navigateAndDisplayResult(context);
             },
@@ -203,7 +203,7 @@ class _ListInformasiPageState extends State<ListInformasiPage> {
                                 child: TextField(
                               controller: _searchController,
                               decoration: InputDecoration(
-                                  hintText: 'cari judul',
+                                  hintText: 'поиск по заголовку',
                                   border: InputBorder.none,
                                   isDense: true),
                               onChanged: (value) {
@@ -249,7 +249,7 @@ class _ListInformasiPageState extends State<ListInformasiPage> {
                   Padding(
                     padding: const EdgeInsets.only(top: 10),
                     child: Text(
-                      'Filter: ${_kategoriList.firstWhere((item) => item['value'] == _selectedKategori)['label']}',
+                      'Фильтр: ${_kategoriList.firstWhere((item) => item['value'] == _selectedKategori)['label']}',
                       style: TextStyle(fontSize: 14, color: Colors.grey),
                     ),
                   ),

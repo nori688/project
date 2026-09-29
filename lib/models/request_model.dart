@@ -14,7 +14,7 @@ class RequestModel {
   factory RequestModel.fromJson(Map<String, dynamic> json) {
     return RequestModel(
       id: json['log_keluar_masuk_id'].toString(),
-      name: json['dormitizen']?['nama'] ?? 'Tidak diketahui',
+      name: json['dormitizen']?['nama'] ?? 'Неизвестно',
       type: json['aktivitas'] ?? 'tidak ada',
       date: DateTime.parse(json['waktu']),
       status: json['status'] ?? 'unknown',

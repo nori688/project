@@ -18,7 +18,7 @@ class HomePageDormitizen extends StatefulWidget {
 }
 
 class _HomePageDormitizenState extends State<HomePageDormitizen> {
-  String nama = 'loading...';
+  String nama = 'загрузка...';
   List<Map<String, dynamic>> pakets = [];
   List<Map<String, dynamic>> informasis = [];
   List<RequestModel> logs = [];
@@ -52,12 +52,12 @@ class _HomePageDormitizenState extends State<HomePageDormitizen> {
       print(response);
       nama = response['data']['nama'];
     } catch (e) {
-      if (e.toString() == 'Exception: Unauthorized or Forbidden') {
-        print('Session expired');
+      if (e.toString() == 'Exception: Не авторизован или запрещено') {
+        print('Сессия истекла');
         await removeToken();
         setState(() {
           _showSpinner = false;
-          error = "Session expired, silahkan login kembali";
+          error = "Сессия истекла, войдите снова";
         });
         if (mounted) {
           Navigator.pushReplacement(context,
@@ -66,10 +66,10 @@ class _HomePageDormitizenState extends State<HomePageDormitizen> {
       }
       setState(() {
         _showSpinner = false;
-        error = "Email atau Password salah";
+        error = "Неверный email или пароль";
       });
       error = "${response['message']}";
-      print('Login error: $e');
+      print('Ошибка входа: $e');
       print(response);
     }
     setState(() {
@@ -88,7 +88,7 @@ class _HomePageDormitizenState extends State<HomePageDormitizen> {
         _showSpinner = false;
       });
     } catch (e) {
-      print("Gagal mengambil log: $e");
+      print("Не удалось получить записи: $e");
       setState(() {
         _showSpinner = false;
       });
@@ -111,7 +111,7 @@ class _HomePageDormitizenState extends State<HomePageDormitizen> {
     } catch (e) {
       print(e);
       setState(() {
-        error = "Error: $e";
+        error = "Ошибка: $e";
       });
     } finally {
       setState(() {
@@ -138,7 +138,7 @@ class _HomePageDormitizenState extends State<HomePageDormitizen> {
     } catch (e) {
       print(e);
       setState(() {
-        error = "Error: $e";
+        error = "Ошибка: $e";
       });
     } finally {
       setState(() {
@@ -173,7 +173,7 @@ class _HomePageDormitizenState extends State<HomePageDormitizen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Selamat $waktuSekarang,',
+                        '$waktuSekarang,',
                         style: kSemiBoldTextStyle.copyWith(
                             color: kWhite, fontSize: 15),
                       ),
@@ -213,16 +213,16 @@ class _HomePageDormitizenState extends State<HomePageDormitizen> {
                           child: Wrap(
                             children: [
                               Text(
-                                'Kunci Anda Sekarang berada di ',
+                                'Ваш ключ сейчас находится: ',
                                 style: kRegularTextStyle.copyWith(
                                     color: kWhite, fontSize: 12),
                               ),
                               Text(
                                 (statusKamar == '')
-                                    ? 'Loading...'
+                                    ? 'Загрузка...'
                                     : (statusKamar == 'terkunci')
-                                        ? 'Helpdesk'
-                                        : 'Kamar Anda',
+                                        ? 'Хелпдеск'
+                                        : 'Ваша комната',
                                 style: kBoldTextStyle.copyWith(
                                     color: kWhite, fontSize: 12),
                               ),
@@ -238,7 +238,7 @@ class _HomePageDormitizenState extends State<HomePageDormitizen> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      'Informasi Terbaru',
+                      'Свежие новости',
                       style: kSemiBoldTextStyle.copyWith(fontSize: 14),
                     ),
                     GestureDetector(
@@ -250,7 +250,7 @@ class _HomePageDormitizenState extends State<HomePageDormitizen> {
                                     const MyListInformasiPage()));
                       },
                       child: Text(
-                        'Lihat Semua',
+                        'Смотреть все',
                         style: kSemiBoldTextStyle.copyWith(
                             color: kMain, fontSize: 12),
                       ),
@@ -260,7 +260,7 @@ class _HomePageDormitizenState extends State<HomePageDormitizen> {
                 (informasis.isEmpty)
                     ? const Center(
                         child: Text(
-                          'Tidak ada informasi terbaru',
+                          'Нет свежих новостей',
                           style: kRegularTextStyle,
                         ),
                       )
@@ -272,7 +272,7 @@ class _HomePageDormitizenState extends State<HomePageDormitizen> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      'Riwayat',
+                      'История',
                       style: kSemiBoldTextStyle.copyWith(fontSize: 14),
                     ),
                     GestureDetector(
@@ -283,7 +283,7 @@ class _HomePageDormitizenState extends State<HomePageDormitizen> {
                                 builder: (context) => const ListMyLog()));
                       },
                       child: Text(
-                        'Lihat Semua',
+                        'Смотреть все',
                         style: kSemiBoldTextStyle.copyWith(
                             color: kMain, fontSize: 12),
                       ),

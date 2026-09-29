@@ -24,7 +24,7 @@ class HomePageHelpdesk extends StatefulWidget {
 }
 
 class _HomePageHelpdeskState extends State<HomePageHelpdesk> {
-  String nama = 'loading...';
+  String nama = 'загрузка...';
   String kamarTerbuka = '0';
   String kamarTertutup = '0';
   String error = "";
@@ -53,12 +53,12 @@ class _HomePageHelpdeskState extends State<HomePageHelpdesk> {
       print(response);
       nama = response['data']['nama'];
     } catch (e) {
-      if (e.toString() == 'Exception: Unauthorized or Forbidden') {
-        print('Session expired');
+      if (e.toString() == 'Exception: Не авторизован или запрещено') {
+        print('Сессия истекла');
         await removeToken();
         setState(() {
           _showSpinner = false;
-          error = "Session expired, silahkan login kembali";
+          error = "Сессия истекла, войдите снова";
         });
         if (mounted) {
           Navigator.pushReplacement(context,
@@ -91,12 +91,12 @@ class _HomePageHelpdeskState extends State<HomePageHelpdesk> {
         kamarTertutup = response['countTertutup'].toString();
       });
     } catch (e) {
-      if (e.toString() == 'Exception: Unauthorized or Forbidden') {
-        print('Session expired');
+      if (e.toString() == 'Exception: Не авторизован или запрещено') {
+        print('Сессия истекла');
         await removeToken();
         setState(() {
           _showSpinner = false;
-          error = "Session expired, silahkan login kembali";
+          error = "Сессия истекла, войдите снова";
         });
         if (mounted) {
           Navigator.pushReplacement(context,
@@ -105,10 +105,10 @@ class _HomePageHelpdeskState extends State<HomePageHelpdesk> {
       }
       setState(() {
         _showSpinner = false;
-        error = "Email atau Password salah";
+        error = "Неверный email или пароль";
       });
       error = "${response['message']}";
-      print('error: $e');
+      print('ошибка: $e');
       print(response);
     }
     setState(() {
@@ -128,7 +128,7 @@ class _HomePageHelpdeskState extends State<HomePageHelpdesk> {
         requests = result;
       });
     } catch (e) {
-      print("Gagal mengambil log keluar masuk: $e");
+      print("Не удалось получить данные о входе/выходе: $e");
     }
   }
 
@@ -182,7 +182,7 @@ class _HomePageHelpdeskState extends State<HomePageHelpdesk> {
                                         CrossAxisAlignment.start,
                                     children: [
                                   Text(
-                                    'Selamat $waktuSekarang,',
+                                    '$waktuSekarang,',
                                     style: kSemiBoldTextStyle.copyWith(
                                         color: kWhite, fontSize: 15),
                                   ),
@@ -204,7 +204,7 @@ class _HomePageHelpdeskState extends State<HomePageHelpdesk> {
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       Text(
-                                        'Kunci di Kamar',
+                                        'Ключ в комнате',
                                         style: kSemiBoldTextStyle.copyWith(
                                             fontSize: 14, color: kWhite),
                                       ),
@@ -221,7 +221,7 @@ class _HomePageHelpdeskState extends State<HomePageHelpdesk> {
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       Text(
-                                        'Kunci di helpdesk',
+                                        'Ключ у хелпдеска',
                                         style: kSemiBoldTextStyle.copyWith(
                                             fontSize: 14, color: kWhite),
                                       ),
@@ -256,7 +256,7 @@ class _HomePageHelpdeskState extends State<HomePageHelpdesk> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            'Request Dormitizen',
+                            'Запросы проживающих',
                             style: kBoldTextStyle.copyWith(fontSize: 14),
                           ),
                           GestureDetector(
@@ -268,7 +268,7 @@ class _HomePageHelpdeskState extends State<HomePageHelpdesk> {
                                           const ListRiwayatRequestPage()));
                             },
                             child: Text(
-                              'Lihat Semua',
+                              'Смотреть все',
                               style: kMediumTextStyle.copyWith(
                                   fontSize: 14, color: kMain),
                             ),
@@ -289,7 +289,7 @@ class _HomePageHelpdeskState extends State<HomePageHelpdesk> {
                                 ),
                                 Center(
                                   child: Text(
-                                    'Tidak ada request',
+                                    'Нет запросов',
                                     style: kBoldTextStyle.copyWith(
                                         fontSize: 14, color: kGrey),
                                   ),
@@ -322,7 +322,7 @@ class _HomePageHelpdeskState extends State<HomePageHelpdesk> {
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 30),
                       child: Text(
-                        'Apps',
+                        'Приложения',
                         style: kBoldTextStyle.copyWith(fontSize: 14),
                       ),
                     ),
@@ -337,17 +337,17 @@ class _HomePageHelpdeskState extends State<HomePageHelpdesk> {
                             children: [
                               AppsIcon(
                                 icon: FontAwesomeIcons.history,
-                                title: 'Riwayat Request',
+                                title: 'История запросов',
                                 pushWidget: ListRiwayatRequestPage(),
                               ),
                               AppsIcon(
                                 icon: FontAwesomeIcons.box,
-                                title: 'Paket',
+                                title: 'Посылки',
                                 pushWidget: ListPaketPage(),
                               ),
                               AppsIcon(
                                 icon: FontAwesomeIcons.bullhorn,
-                                title: 'Informasi',
+                                title: 'Информация',
                                 pushWidget: ListInformasiPage(),
                               ),
                             ],
@@ -356,7 +356,7 @@ class _HomePageHelpdeskState extends State<HomePageHelpdesk> {
                             children: [
                               AppsIcon(
                                 icon: FontAwesomeIcons.chartSimple,
-                                title: 'Statistik',
+                                title: 'Статистика',
                                 // pushWidget: UnavailableFeaturesPage(),
                                 pushWidget: ListStatistikPage(),
                               ),

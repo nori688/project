@@ -22,9 +22,9 @@ class _FormDormitizenPickerState extends State<FormDormitizenPicker> {
                   builder: (context) => const SearchDormitizenPage()));
         },
         child: InputDecorator(
-          decoration: basicInputDecoration('Dormitizen'),
+          decoration: basicInputDecoration('Проживающий'),
           child: const Text(
-            'Pilih Dormitizen',
+            'Выберите проживающего',
             style: TextStyle(color: Colors.black),
           ),
         ),

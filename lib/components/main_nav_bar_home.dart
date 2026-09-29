@@ -47,7 +47,7 @@ class _MainNavBarHomeState extends State<MainNavBarHome> {
       });
     } catch (e) {
       setState(() {
-        statusKamar = 'Gagal';
+        statusKamar = 'Ошибка';
         isLoading = false;
       });
     }
@@ -99,8 +99,8 @@ class _MainNavBarHomeState extends State<MainNavBarHome> {
                             onTap: () {
                               confirmDialog(
                                 context,
-                                "Konfirmasi Request",
-                                "Apakah Anda yakin ingin mengajukan request keluar/masuk?",
+                                "Подтверждение запроса",
+                                "Вы уверены, что хотите отправить запрос на вход/выход?",
                                 () async {
                                   Navigator.of(context)
                                       .pop(); // Tutup dialog dulu
@@ -110,13 +110,13 @@ class _MainNavBarHomeState extends State<MainNavBarHome> {
                                     ScaffoldMessenger.of(context).showSnackBar(
                                       const SnackBar(
                                           content:
-                                              Text('Request berhasil dikirim')),
+                                              Text('Запрос успешно отправлен')),
                                     );
                                   } catch (e) {
                                     ScaffoldMessenger.of(context).showSnackBar(
                                       const SnackBar(
                                           content:
-                                              Text('Gagal mengirim request')),
+                                              Text('Не удалось отправить запрос')),
                                     );
                                   }
                                 },
@@ -134,7 +134,7 @@ class _MainNavBarHomeState extends State<MainNavBarHome> {
                                       shape: BoxShape.circle,
                                       color: statusKamar == "pending" ? kGrey : null,
                                       gradient: statusKamar == "pending" ? null : kGradientMain,),
-                                  child:  Icon(
+                                  child: FaIcon(
                                     statusKamar == "Kamar terkunci"
                                     ? FontAwesomeIcons.doorClosed
                                     : statusKamar == "Kamar terbuka" ? FontAwesomeIcons.doorOpen : FontAwesomeIcons.hourglassHalf,
@@ -145,7 +145,7 @@ class _MainNavBarHomeState extends State<MainNavBarHome> {
                                   height: 3,
                                 ),
                                 Text(
-                                   statusKamar == "Kamar terkunci" ? 'Masuk' : statusKamar == "Kamar terbuka" ? 'Keluar' : 'Pending',
+                                   statusKamar == "Kamar terkunci" ? 'Вход' : statusKamar == "Kamar terbuka" ? 'Выход' : 'Ожидание',
                                   style: kSemiBoldTextStyle.copyWith(
                                       fontSize: 14, color: kRed),
                                 ),

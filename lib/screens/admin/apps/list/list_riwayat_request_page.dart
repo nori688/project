@@ -39,7 +39,7 @@ class _ListRiwayatRequestPageState extends State<ListRiwayatRequestPage> {
         isLoading = false;
       });
     } catch (e) {
-      print("Gagal mengambil data: $e");
+      print("Не удалось получить данные: $e");
       setState(() {
         isLoading = false;
       });
@@ -52,7 +52,7 @@ class _ListRiwayatRequestPageState extends State<ListRiwayatRequestPage> {
     return Scaffold(
         body: Column(children: [
       AppBarPage(
-        title: 'Riwayat Request',
+        title: 'История запросов',
         onAdd: () {
           Navigator.push(context,
               MaterialPageRoute(builder: (context) => const AddLogPage()));
@@ -76,7 +76,7 @@ class _ListRiwayatRequestPageState extends State<ListRiwayatRequestPage> {
                   child: TextField(
                 controller: _searchController,
                 decoration: InputDecoration(
-                    hintText: 'cari judul',
+                    hintText: 'поиск по заголовку',
                     border: InputBorder.none,
                     isDense: true),
                 onChanged: (value) {
@@ -91,7 +91,7 @@ class _ListRiwayatRequestPageState extends State<ListRiwayatRequestPage> {
         child: isLoading
             ? const Center(child: CircularProgressIndicator())
             : filteredLogs.isEmpty
-                ? const Center(child: Text('Tidak ada riwayat log.'))
+                ? const Center(child: Text('Нет истории записей.'))
                 : ListView.builder(
                     itemCount: filteredLogs.length,
                     itemBuilder: (context, index) {

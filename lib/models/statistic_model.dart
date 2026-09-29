@@ -1,5 +1,3 @@
-import 'dart:io';
-
 class StatisticModel {
   final String url_file;
   final DateTime date;

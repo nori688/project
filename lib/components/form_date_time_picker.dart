@@ -67,10 +67,10 @@ class _FormDatePickerState extends State<FormDatePicker> {
         InkWell(
           onTap: () => _selectDate(context),
           child: InputDecorator(
-            decoration: basicInputDecoration('Tanggal'),
+            decoration: basicInputDecoration('Дата'),
             child: Text(
               selectedDate == null
-                  ? 'Pilih Tanggal'
+                  ? 'Выберите дату'
                   : DateFormat('dd/MM/yyyy').format(selectedDate!),
               style: const TextStyle(color: Colors.black),
             ),
@@ -80,10 +80,10 @@ class _FormDatePickerState extends State<FormDatePicker> {
         InkWell(
           onTap: () => _selectTime(context),
           child: InputDecorator(
-            decoration: basicInputDecoration('Waktu'),
+            decoration: basicInputDecoration('Время'),
             child: Text(
               selectedTime == null
-                  ? 'Pilih Waktu'
+                  ? 'Выберите время'
                   : selectedTime!.format(context),
               style: const TextStyle(color: Colors.black),
             ),

@@ -29,7 +29,7 @@ class FormTextField extends StatelessWidget {
         validator: (validator == null)
             ? (value) {
                 if (value == null || value.isEmpty) {
-                  return 'Tolong masukkan $label';
+                  return 'Введите $label';
                 }
                 return null;
               }

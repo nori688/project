@@ -26,7 +26,7 @@ class HomePageSR extends StatefulWidget {
 }
 
 class _HomePageSRState extends State<HomePageSR> {
-  String nama = 'loading...';
+  String nama = 'загрузка...';
   String kamarTerbuka = '0';
   String kamarTertutup = '0';
   String error = "";
@@ -57,12 +57,12 @@ class _HomePageSRState extends State<HomePageSR> {
       print(response);
       nama = response['data']['nama'];
     } catch (e) {
-      if (e.toString() == 'Exception: Unauthorized or Forbidden') {
-        print('Session expired');
+      if (e.toString() == 'Exception: Не авторизован или запрещено') {
+        print('Сессия истекла');
         await removeToken();
         setState(() {
           _showSpinner = false;
-          error = "Session expired, silahkan login kembali";
+          error = "Сессия истекла, войдите снова";
         });
         if (mounted) {
           Navigator.pushReplacement(context,
@@ -93,12 +93,12 @@ class _HomePageSRState extends State<HomePageSR> {
       kamarTerbuka = response['countTerbuka'].toString();
       kamarTertutup = response['countTertutup'].toString();
     } catch (e) {
-      if (e.toString() == 'Exception: Unauthorized or Forbidden') {
-        print('Session expired');
+      if (e.toString() == 'Exception: Не авторизован или запрещено') {
+        print('Сессия истекла');
         await removeToken();
         setState(() {
           _showSpinner = false;
-          error = "Session expired, silahkan login kembali";
+          error = "Сессия истекла, войдите снова";
         });
         if (mounted) {
           Navigator.pushReplacement(context,
@@ -107,10 +107,10 @@ class _HomePageSRState extends State<HomePageSR> {
       }
       setState(() {
         _showSpinner = false;
-        error = "Email atau Password salah";
+        error = "Неверный email или пароль";
       });
       error = "${response['message']}";
-      print('error: $e');
+      print('ошибка: $e');
       print(response);
     }
     setState(() {
@@ -134,7 +134,7 @@ class _HomePageSRState extends State<HomePageSR> {
     } catch (e) {
       print(e);
       setState(() {
-        error = "Error: $e";
+        error = "Ошибка: $e";
       });
     } finally {
       setState(() {
@@ -161,7 +161,7 @@ class _HomePageSRState extends State<HomePageSR> {
         requests = result;
       });
     } catch (e) {
-      print("Gagal mengambil log keluar masuk: $e");
+      print("Не удалось получить данные о входе/выходе: $e");
     }
   }
 
@@ -215,7 +215,7 @@ class _HomePageSRState extends State<HomePageSR> {
                                         CrossAxisAlignment.start,
                                     children: [
                                   Text(
-                                    'Selamat $waktuSekarang,',
+                                    '$waktuSekarang,',
                                     style: kSemiBoldTextStyle.copyWith(
                                         color: kWhite, fontSize: 15),
                                   ),
@@ -237,7 +237,7 @@ class _HomePageSRState extends State<HomePageSR> {
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       Text(
-                                        'Kunci di Kamar',
+                                        'Ключ в комнате',
                                         style: kSemiBoldTextStyle.copyWith(
                                             fontSize: 14, color: kWhite),
                                       ),
@@ -254,7 +254,7 @@ class _HomePageSRState extends State<HomePageSR> {
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       Text(
-                                        'Kunci di helpdesk',
+                                        'Ключ у хелпдеска',
                                         style: kSemiBoldTextStyle.copyWith(
                                             fontSize: 14, color: kWhite),
                                       ),
@@ -300,16 +300,16 @@ class _HomePageSRState extends State<HomePageSR> {
                               child: Wrap(
                                 children: [
                                   Text(
-                                    'Kunci Anda Sekarang berada di ',
+                                    'Ваш ключ сейчас находится: ',
                                     style: kRegularTextStyle.copyWith(
                                         color: kWhite, fontSize: 12),
                                   ),
                                   Text(
                                     (statusKamar == '')
-                                        ? 'Loading...'
+                                        ? 'Загрузка...'
                                         : (statusKamar == 'terkunci')
-                                            ? 'Helpdesk'
-                                            : 'Kamar Anda',
+                                            ? 'Хелпдеск'
+                                            : 'Ваша комната',
                                     style: kBoldTextStyle.copyWith(
                                         color: kWhite, fontSize: 12),
                                   ),
@@ -329,7 +329,7 @@ class _HomePageSRState extends State<HomePageSR> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            'Request Dormitizen',
+                            'Запросы проживающих',
                             style: kBoldTextStyle.copyWith(fontSize: 14),
                           ),
                           GestureDetector(
@@ -341,7 +341,7 @@ class _HomePageSRState extends State<HomePageSR> {
                                           const ListRiwayatRequestPage()));
                             },
                             child: Text(
-                              'Lihat Semua',
+                              'Смотреть все',
                               style: kMediumTextStyle.copyWith(
                                   fontSize: 14, color: kMain),
                             ),
@@ -362,7 +362,7 @@ class _HomePageSRState extends State<HomePageSR> {
                                 ),
                                 Center(
                                   child: Text(
-                                    'Tidak ada request',
+                                    'Нет запросов',
                                     style: kBoldTextStyle.copyWith(
                                         fontSize: 14, color: kGrey),
                                   ),
@@ -395,7 +395,7 @@ class _HomePageSRState extends State<HomePageSR> {
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 30),
                       child: Text(
-                        'Apps',
+                        'Приложения',
                         style: kBoldTextStyle.copyWith(fontSize: 14),
                       ),
                     ),
@@ -410,17 +410,17 @@ class _HomePageSRState extends State<HomePageSR> {
                             children: [
                               AppsIcon(
                                 icon: FontAwesomeIcons.history,
-                                title: 'Riwayat Request',
+                                title: 'История запросов',
                                 pushWidget: ListRiwayatRequestPage(),
                               ),
                               AppsIcon(
                                 icon: FontAwesomeIcons.box,
-                                title: 'Paket',
+                                title: 'Посылки',
                                 pushWidget: ListPaketPageSR(),
                               ),
                               AppsIcon(
                                 icon: FontAwesomeIcons.bullhorn,
-                                title: 'Informasi',
+                                title: 'Информация',
                                 pushWidget: ListInformasiPage(),
                               ),
                             ],
@@ -429,12 +429,12 @@ class _HomePageSRState extends State<HomePageSR> {
                             children: [
                               AppsIcon(
                                 icon: FontAwesomeIcons.bookmark,
-                                title: 'My Log',
+                                title: 'Мой журнал',
                                 pushWidget: ListMyLog(),
                               ),
                               AppsIcon(
                                 icon: FontAwesomeIcons.boxArchive,
-                                title: 'My Paket',
+                                title: 'Мои посылки',
                                 pushWidget: ListMyPaketPage(),
                               ),
                               Expanded(child: SizedBox())

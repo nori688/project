@@ -36,14 +36,14 @@ class NotificationService {
   }
 
   Future<void> _onNotificationTap(NotificationResponse response) async {
-    dev.log("notification clicked: ${response.payload}");
-    print('notif recieved!');
+    dev.log("уведомление открыто: ${response.payload}");
+    print('уведомление получено!');
   }
 
   Future<void> showInstantNotification() async {
     const AndroidNotificationDetails androidPlatformChannelSpecifies =
-        AndroidNotificationDetails('instant_channel', 'Instant Notifications',
-            channelDescription: 'Channel for instant notification',
+        AndroidNotificationDetails('instant_channel', 'Мгновенные уведомления',
+            channelDescription: 'Канал для мгновенных уведомлений',
             importance: Importance.max,
             priority: Priority.high,
             icon: 'ic_launcer');
@@ -52,8 +52,8 @@ class NotificationService {
         NotificationDetails(android: androidPlatformChannelSpecifies);
     await flutterLocalNotificationsPlugin.show(
       0,
-      'Instant Notifications',
-      'Description of Notification',
+      'Мгновенные уведомления',
+      'Описание уведомления',
       platformChannelSpecifies,
       payload: 'instant',
     );
@@ -63,7 +63,7 @@ class NotificationService {
     try {
       if (scheduledDateTime.isBefore(DateTime.now())) {
         dev.log(
-            'notification scheduled for tomorrow at ${scheduledDateTime.hour}:${scheduledDateTime.minute}');
+            'уведомление запланировано на завтра в ${scheduledDateTime.hour}:${scheduledDateTime.minute}');
         scheduledDateTime = DateTime(
           DateTime.now().year,
           DateTime.now().month,
@@ -74,15 +74,15 @@ class NotificationService {
         );
       } else {
         dev.log(
-            'Notification has scheduled for ${scheduledDateTime.hour} : ${scheduledDateTime.minute}');
-        print('coba');
+            'Уведомление запланировано на ${scheduledDateTime.hour}:${scheduledDateTime.minute}');
+        print('проверка');
       }
 
       const AndroidNotificationDetails androidPlatformChannelSpecifies =
           AndroidNotificationDetails(
         'instant_channel',
-        'Instant Notifications',
-        channelDescription: 'Channel for instant notification',
+        'Мгновенные уведомления',
+        channelDescription: 'Канал для мгновенных уведомлений',
         importance: Importance.max,
         priority: Priority.high,
       );
@@ -91,8 +91,8 @@ class NotificationService {
           NotificationDetails(android: androidPlatformChannelSpecifies);
       await flutterLocalNotificationsPlugin.zonedSchedule(
         1,
-        'Peringatan Jam Malam',
-        'Halo dormitizen! 15 menit lagi gedung asrama akan ditutup, segera balik ke asrama sebelum jam 10 malam ya',
+        'Предупреждение о комендантском часе',
+        'Проживающий! Через 15 минут общежитие закрывается, успей вернуться до 22:00.',
         tz.TZDateTime.from(scheduledDateTime, tz.local),
         platformChannelSpecifies,
         uiLocalNotificationDateInterpretation:
@@ -101,7 +101,7 @@ class NotificationService {
         androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
       );
     } catch (e) {
-      dev.log('error catched: $e');
+      dev.log('поймана ошибка: $e');
     }
   }
 

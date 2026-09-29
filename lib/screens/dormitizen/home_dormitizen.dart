@@ -10,18 +10,18 @@ import 'package:my_dorm/screens/dormitizen/home/profil_page_dormitizen.dart';
 
 class HomeDormitizen extends StatelessWidget {
   final List<NavBarModel> navIcons = [
-    NavBarModel(icon: FluentIcons.home_24_filled, title: 'Beranda'),
+    NavBarModel(icon: FluentIcons.home_24_filled, title: 'Главная'),
     NavBarModel(
       icon: FluentIcons.box_24_filled,
-      title: 'Paket',
+      title: 'Посылки',
     ),
     NavBarModel(
       icon: FluentIcons.alert_24_filled,
-      title: 'Notifikasi',
+      title: 'Уведомления',
     ),
     NavBarModel(
       icon: FluentIcons.person_24_filled,
-      title: 'Profil',
+      title: 'Профиль',
     ),
   ];
   final List<Widget> widgetOptions = <Widget>[

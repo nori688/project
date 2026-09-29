@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -8,7 +6,7 @@ import 'package:my_dorm/constant/constant.dart';
 import 'package:my_dorm/service/image_service.dart';
 
 class CameraPage extends StatefulWidget {
-  final Function(File) onImageCaptured;
+  final Function(XFile) onImageCaptured;
 
   const CameraPage({super.key, required this.onImageCaptured});
 
@@ -34,7 +32,7 @@ class _CameraPageState extends State<CameraPage> {
         _initializeControllerForCamera(_availableCameras[_currentCameraIndex]);
       }
     } catch (e) {
-      print("Error initializing camera: $e");
+      print("Ошибка инициализации камеры: $e");
     }
   }
 
@@ -49,10 +47,10 @@ class _CameraPageState extends State<CameraPage> {
     if (_cameraController != null && _cameraController!.value.isInitialized) {
       try {
         final XFile file = await _cameraController!.takePicture();
-        widget.onImageCaptured(File(file.path)); // Pass the file back
+        widget.onImageCaptured(file); // Pass the file back
         Navigator.pop(context); // Close the camera page
       } catch (e) {
-        print("Error capturing image: $e");
+        print("Ошибка съёмки: $e");
       }
     }
   }
@@ -60,9 +58,9 @@ class _CameraPageState extends State<CameraPage> {
   void _imageBrowse() async {
     ImageService imageService = ImageService();
     
-    final String pickedFile = await imageService.pickImage();
+    final XFile? pickedFile = await imageService.pickImage();
     if (pickedFile != null) {
-      widget.onImageCaptured(File(pickedFile));
+      widget.onImageCaptured(pickedFile);
       Navigator.pop(context);
     }
   }
@@ -90,7 +88,7 @@ class _CameraPageState extends State<CameraPage> {
     return Scaffold(
       body: Stack(children: [
         Column(children: [
-          const AppBarPage(title: 'Tambah Foto'),
+          const AppBarPage(title: 'Добавить фото'),
           _cameraController != null && _cameraController!.value.isInitialized
               ? Expanded(child: CameraPreview(_cameraController!))
               : const Expanded(

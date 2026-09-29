@@ -9,8 +9,8 @@ class FirebaseNotificationService {
 
   static const AndroidNotificationChannel channel = AndroidNotificationChannel(
     'high_importance_channel',
-    'High Importance Notifications',
-    description: 'This channel is used for important notifications.',
+    'Уведомления высокой важности',
+    description: 'Этот канал используется для важных уведомлений.',
     importance: Importance.high,
   );
 
@@ -53,16 +53,16 @@ class FirebaseNotificationService {
   static Future<void> _subcsribeTopic(String topic) async {
     try {
       await FirebaseMessaging.instance.subscribeToTopic(topic);
-      dev.log('Subscribed to topic: ${topic}');
+      dev.log('Подписка на тему: ${topic}');
     } catch (e) {
-      print("Error subcsribed to topic: ${e}");
+      print("Ошибка подписки на тему: ${e}");
     }
   }
 
   static Future<void> _firebaseMessagingBackgroundHandler(
       RemoteMessage message) async {
     await Firebase.initializeApp();
-    print('Handling a background message ${message.messageId}');
+    print('Обработка фонового сообщения ${message.messageId}');
   }
 
   static void _handleMessage(RemoteMessage message) {
@@ -88,14 +88,14 @@ class FirebaseNotificationService {
   static void _handleMessageOpenedApp(RemoteMessage message) {
     RemoteNotification? notification = message.notification;
     if (notification != null) {
-      dev.log('Notification opened: ${notification.title}');
+      dev.log('Уведомление открыто: ${notification.title}');
     }
   }
 
   static Future<String> getToken() async {
     token = await FirebaseMessaging.instance.getToken();
-    dev.log('success get token');
-    dev.log('Token: $token');
+    dev.log('токен успешно получен');
+    dev.log('Токен: $token');
     return token!;
   }
 }

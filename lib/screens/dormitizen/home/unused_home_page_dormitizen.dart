@@ -14,7 +14,7 @@ class HomePageDormitizenUnused extends StatefulWidget {
 }
 
 class _HomePageDormitizenUnusedState extends State<HomePageDormitizenUnused> {
-  String nama = 'loading...';
+  String nama = 'загрузка...';
   String statusKamar = '';
   String error = "";
   bool _showSpinner = false;
@@ -41,10 +41,10 @@ class _HomePageDormitizenUnusedState extends State<HomePageDormitizenUnused> {
     } catch (e) {
       setState(() {
         _showSpinner = false;
-        error = "Email atau Password salah";
+        error = "Неверный email или пароль";
       });
       error = "${response['message']}";
-      print('Login error: $e');
+      print('Ошибка входа: $e');
       print(response);
     }
     setState(() {
@@ -81,7 +81,7 @@ class _HomePageDormitizenUnusedState extends State<HomePageDormitizenUnused> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Selamat pagi,',
+                    'Доброе утро,',
                     style: kSemiBoldTextStyle.copyWith(
                         color: kWhite, fontSize: 15),
                   ),
@@ -97,7 +97,7 @@ class _HomePageDormitizenUnusedState extends State<HomePageDormitizenUnused> {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 30),
                 child: Text(
-                  'Informasi',
+                  'Информация',
                   style:
                       kSemiBoldTextStyle.copyWith(fontSize: 14, color: kWhite),
                 ),
@@ -124,16 +124,16 @@ class _HomePageDormitizenUnusedState extends State<HomePageDormitizenUnused> {
                     width: 10,
                   ),
                   Text(
-                    'Kunci Anda Sekarang berada di ',
+                    'Ваш ключ сейчас находится: ',
                     style:
                         kRegularTextStyle.copyWith(color: kWhite, fontSize: 12),
                   ),
                   Text(
                     (statusKamar == '')
-                        ? 'Loading...'
+                        ? 'Загрузка...'
                         : (statusKamar == 'terkunci')
-                            ? 'Helpdesk'
-                            : 'Kamar Anda',
+                            ? 'Хелпдеск'
+                            : 'Ваша комната',
                     style: kBoldTextStyle.copyWith(color: kWhite, fontSize: 12),
                   )
                 ]),

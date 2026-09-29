@@ -41,7 +41,7 @@ class _ReportListPageState extends State<ReportListPage> {
     } catch (e) {
       print(e);
       setState(() {
-        error = "Error: $e";
+        error = "Ошибка: $e";
       });
     }
     setState(() {
@@ -69,7 +69,7 @@ class _ReportListPageState extends State<ReportListPage> {
       body: Column(
         children: [
           AppBarPage(
-            title: 'Laporan',
+            title: 'Отчёты',
             onAdd: () async {
               await _navigateAndDisplayResult(context);
             },
@@ -100,12 +100,12 @@ class _ReportListPageState extends State<ReportListPage> {
                                     height: 4,
                                   ),
                                   Text(
-                                    '10 Januari 2024',
+                                    '10 января 2024',
                                     style: kMediumTextStyle.copyWith(
                                         fontSize: 14, color: kGrey),
                                   ),
                                   Text(
-                                    'status: dalam proses',
+                                    'статус: в обработке',
                                     style: kMediumTextStyle.copyWith(
                                         fontSize: 14, color: kGrey),
                                   ),

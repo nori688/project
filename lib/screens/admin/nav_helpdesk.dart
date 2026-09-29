@@ -10,14 +10,14 @@ import 'package:my_dorm/screens/admin/home/profil_page_admin.dart';
 
 class NavBarHelpdesk extends StatelessWidget {
   final List<NavBarModel> navIcons = [
-    NavBarModel(icon: FluentIcons.home_24_filled, title: 'Beranda'),
+    NavBarModel(icon: FluentIcons.home_24_filled, title: 'Главная'),
     NavBarModel(
       icon: FluentIcons.bed_24_filled,
-      title: 'kamar',
+      title: 'Комнаты',
     ),
     NavBarModel(
       icon: FluentIcons.person_24_filled,
-      title: 'Profil',
+      title: 'Профиль',
     ),
   ];
   final List<Widget> widgetOptions = <Widget>[

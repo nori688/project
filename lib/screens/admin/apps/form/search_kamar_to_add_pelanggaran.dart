@@ -38,16 +38,16 @@ class _SearchKamarToAddPelanggaranState
               .map((item) => item as Map<String, dynamic>)
               .toList();
         });
-        print('Data Dormitizen: $dormitizens');
+        print('Проживающие: $dormitizens');
       } else {
         setState(() {
-          error = "Data dormitizen tidak ditemukan.";
+          error = "Проживающий не найден.";
         });
       }
     } catch (e) {
       print(e);
       setState(() {
-        error = "Error: $e";
+        error = "Ошибка: $e";
       });
     } finally {
       setState(() {
@@ -64,7 +64,7 @@ class _SearchKamarToAddPelanggaranState
         inAsyncCall: _showSpinner,
         child: Column(
           children: [
-            const AppBarPage(title: 'Tambah Pelanggaran'),
+            const AppBarPage(title: 'Добавить нарушение'),
             Expanded(
               child: SingleChildScrollView(
                 child: Padding(
@@ -81,8 +81,8 @@ class _SearchKamarToAddPelanggaranState
                             FilteringTextInputFormatter.digitsOnly,
                           ],
                           decoration: InputDecoration(
-                            labelText: 'Nomor Kamar',
-                            hintText: 'Masukkan nomor kamar',
+                            labelText: 'Номер комнаты',
+                            hintText: 'Введите номер комнаты',
                             border: OutlineInputBorder(
                               borderSide: const BorderSide(color: Colors.grey),
                               borderRadius: BorderRadius.circular(8),
@@ -100,7 +100,7 @@ class _SearchKamarToAddPelanggaranState
                           ),
                           validator: (value) {
                             if (value == null || value.isEmpty) {
-                              return 'Nomor kamar tidak boleh kosong';
+                              return 'Номер комнаты не может быть пустым';
                             }
                             return null;
                           },
@@ -124,12 +124,12 @@ class _SearchKamarToAddPelanggaranState
                                 ScaffoldMessenger.of(context).showSnackBar(
                                   const SnackBar(
                                       content: Text(
-                                          'Data Dormitizen tidak ditemukan')),
+                                          'Проживающий не найден')),
                                 );
                               }
                             }
                           },
-                          title: 'Cari ',
+                          title: 'Поиск ',
                         ),
                       ],
                     ),

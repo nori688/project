@@ -1,5 +1,6 @@
-import 'dart:io';
+import 'dart:typed_data';
 
+import 'package:cross_file/cross_file.dart';
 import 'package:flutter/material.dart';
 import 'package:my_dorm/constant/constant.dart';
 import 'package:my_dorm/screens/common/camera_page.dart';
@@ -7,7 +8,7 @@ import 'package:my_dorm/service/image_service.dart';
 
 class FormPhotoPicker extends StatefulWidget {
   final String title;
-  final ValueChanged<File?> onImageSelected; // Callback for selected image
+  final ValueChanged<XFile?> onImageSelected; // Callback for selected image
 
   const FormPhotoPicker({
     super.key,
@@ -22,7 +23,7 @@ class FormPhotoPicker extends StatefulWidget {
 class _FormPhotoPickerState extends State<FormPhotoPicker> {
   final ImageService _imageService = ImageService();
 
-  void _onImageCaptured(File image) {
+  void _onImageCaptured(XFile image) {
     print(image.path);
     setState(() {
       _imageService.selectedImage =
@@ -76,7 +77,7 @@ class _FormPhotoPickerState extends State<FormPhotoPicker> {
                       height: 4,
                     ),
                     Text(
-                      'Unggah foto ${widget.title}',
+                      'Загрузить фото ${widget.title}',
                       style: kSemiBoldTextStyle.copyWith(fontSize: 14),
                     ),
                   ],
@@ -84,12 +85,20 @@ class _FormPhotoPickerState extends State<FormPhotoPicker> {
               ),
             )
           : InputDecorator(
-              decoration: basicInputDecoration('Foto ${widget.title}'),
+              decoration: basicInputDecoration('Фото ${widget.title}'),
               child: Stack(
                 children: [
                   ClipRRect(
                     borderRadius: BorderRadius.circular(4),
-                    child: Image.file(_imageService.selectedImage!),
+                    child: FutureBuilder<Uint8List>(
+                      future: _imageService.selectedImage!.readAsBytes(),
+                      builder: (context, snapshot) {
+                        if (snapshot.hasData) {
+                          return Image.memory(snapshot.data!);
+                        }
+                        return const SizedBox(height: 150);
+                      },
+                    ),
                   ),
                   Align(
                     alignment: Alignment.topRight,

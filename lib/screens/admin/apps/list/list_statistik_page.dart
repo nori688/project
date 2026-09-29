@@ -21,7 +21,7 @@ class ListStatistikPage extends StatelessWidget {
         body: SingleChildScrollView(
           child: Column(children: [
                 const AppBarPage(
-          title: 'Statistik',
+          title: 'Статистика',
                 ),
                 const SizedBox(height: 20),
                 Column(

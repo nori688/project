@@ -13,23 +13,23 @@ class ListKeterlambatanPage extends StatelessWidget {
       KeterlambatanModel(
           name: "Rakha Galih Nugraha Sukma",
           reason:
-              "Saya sedang ada kesibukan menjadi panitia Championship Regeneration 2024.",
+              "Я занят организацией мероприятия Championship Regeneration 2024.",
           date: DateTime.now()),
       KeterlambatanModel(
           name: "Muhammad Dias Adani",
-          reason: "Saya sedang ada kesibukan kerja kelompok bersama teman.",
+          reason: "Я занят групповой работой с друзьями.",
           date: DateTime.now()),
       KeterlambatanModel(
           name: "Iksan Oktav Risandy",
           reason:
-              "Saya malam ini sibuk mengurus finansial perlombaan LIDM 2024.",
+              "Сегодня вечером я занят финансовыми вопросами соревнования LIDM 2024.",
           date: DateTime.now()),
     ];
 
     return Scaffold(
         body: Column(children: [
       AppBarPage(
-        title: 'Keterlambatan',
+        title: 'Опоздания',
         onAdd: () {
           Navigator.push(
               context,

@@ -35,7 +35,7 @@ class _AddLogPageState extends State<AddLogPage> {
     dynamic response = {};
     try {
       if (selectedDormitizen == null) {
-        throw Exception("Dormitizen harus dipilih");
+        throw Exception("Нужно выбрать проживающего");
       }
 
       Map<String, String> data = {
@@ -43,26 +43,26 @@ class _AddLogPageState extends State<AddLogPage> {
         'waktu': waktu,
       };
 
-      debugPrint('Data to be sent: $data');
+      debugPrint('Отправляемые данные: $data');
 
       response = await addLogManual(data);
-      debugPrint('Response from add log manual: $response');
+      debugPrint('Ответ на добавление записи: $response');
 
       if (mounted) {
         setState(() {
-          infoSnackbar = 'Log berhasil ditambahkan!';
+          infoSnackbar = 'Запись успешно добавлена!';
         });
       } else {
         setState(() {
-          infoSnackbar = 'Gagal menambahkan log';
+          infoSnackbar = 'Не удалось добавить запись';
         });
       }
     } catch (e) {
       setState(() {
-        error = "${response['message'] ?? 'Terjadi kesalahan.'}";
-        infoSnackbar = 'Log gagal ditambahkan!';
+        error = "${response['message'] ?? 'Произошла ошибка.'}";
+        infoSnackbar = 'Не удалось добавить запись!';
       });
-      debugPrint('Add log error: $e');
+      debugPrint('Ошибка добавления записи: $e');
     }
 
     setState(() {
@@ -90,16 +90,16 @@ class _AddLogPageState extends State<AddLogPage> {
             'nama': dormitizen['nama'],
           });
         }
-        print('Data Dormitizen: $dormitizens');
+        print('Проживающие: $dormitizens');
       } else {
         setState(() {
-          error = "Data dormitizen tidak ditemukan.";
+          error = "Проживающий не найден.";
         });
       }
     } catch (e) {
       print(e);
       setState(() {
-        error = "Error: $e";
+        error = "Ошибка: $e";
       });
     } finally {
       setState(() {
@@ -116,7 +116,7 @@ class _AddLogPageState extends State<AddLogPage> {
         inAsyncCall: _showSpinner,
         child: Column(
           children: [
-            const AppBarPage(title: 'Tambah Log Manual'),
+            const AppBarPage(title: 'Добавить запись вручную'),
             Expanded(
                 child: SingleChildScrollView(
               child: Padding(
@@ -135,7 +135,7 @@ class _AddLogPageState extends State<AddLogPage> {
                           FilteringTextInputFormatter.digitsOnly,
                         ],
                         decoration:
-                            basicInputDecoration("Nomor kamar").copyWith(
+                            basicInputDecoration("Номер комнаты").copyWith(
                           suffixIcon: IconButton(
                             onPressed: () async {
                               await searchDormitizen(_kamarController.text);
@@ -145,7 +145,7 @@ class _AddLogPageState extends State<AddLogPage> {
                         ),
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return 'Nomor kamar tidak boleh kosong';
+                            return 'Номер комнаты не может быть пустым';
                           }
                           return null;
                         },
@@ -156,7 +156,7 @@ class _AddLogPageState extends State<AddLogPage> {
                         child: DropdownButtonFormField<String>(
                           style: kMediumTextStyle.copyWith(
                               fontSize: 16, color: Colors.black),
-                          decoration: basicInputDecoration("Pilih Dormitizen"),
+                          decoration: basicInputDecoration("Выберите проживающего"),
                           value: selectedDormitizen,
                           icon: const Icon(Icons.arrow_drop_down),
                           isExpanded: true,
@@ -171,7 +171,7 @@ class _AddLogPageState extends State<AddLogPage> {
                             setState(() {
                               selectedDormitizen = newValue;
                             });
-                            print('Selected Dormitizen: $selectedDormitizen');
+                            print('Выбран проживающий: $selectedDormitizen');
                           },
                         ),
                       ),
@@ -189,7 +189,7 @@ class _AddLogPageState extends State<AddLogPage> {
                               try {
                                 await _addLogManual();
                                 if (infoSnackbar ==
-                                    'Log berhasil ditambahkan!') {
+                                    'Запись успешно добавлена!') {
                                   ScaffoldMessenger.of(context).showSnackBar(
                                       SnackBar(content: Text(infoSnackbar)));
                                   Navigator.pop(context, 'refresh');
@@ -200,12 +200,12 @@ class _AddLogPageState extends State<AddLogPage> {
                               } catch (e) {
                                 ScaffoldMessenger.of(context).showSnackBar(
                                   SnackBar(
-                                      content: Text('Terjadi kesalahan: $e')),
+                                      content: Text('Произошла ошибка: $e')),
                                 );
                               }
                             }
                           },
-                          title: 'Kirim')
+                          title: 'Отправить')
                     ],
                   ),
                 ),

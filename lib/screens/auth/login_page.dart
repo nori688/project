@@ -48,7 +48,7 @@ class _LoginPageState extends State<LoginPage> {
         String tokenFirebaseNotification =
             await FirebaseNotificationService.getToken();
         await postTokenFCM(tokenFirebaseNotification);
-        dev.log('Firebase token: $tokenFirebaseNotification berhasil dikirim');
+        dev.log('Firebase-токен: $tokenFirebaseNotification успешно отправлен');
         if (response['role'] == 'senior_resident') {
           Navigator.pushReplacement(
               context, MaterialPageRoute(builder: (context) => NavbarSR()));
@@ -64,21 +64,21 @@ class _LoginPageState extends State<LoginPage> {
         }
       }
 
-      print('berhasil login!');
+      print('успешный вход!');
       String? accessToken = await getToken();
       print(accessToken);
     } catch (e) {
       setState(() {
         _showSpinner = false;
-        error = "Email atau Password salah";
+        error = "Неверный email или пароль";
       });
       error = "${response['message']}";
       if (error == "null") {
         setState(() {
-          error = "Network Error. Please change your ";
+          error = "Ошибка сети. Проверьте подключение";
         });
       }
-      print('Login error: $e');
+      print('Ошибка входа: $e');
       print(response);
     }
     setState(() {
@@ -132,7 +132,7 @@ class _LoginPageState extends State<LoginPage> {
                       Align(
                         alignment: Alignment.centerLeft,
                         child: Text(
-                          'Login',
+                          'Вход',
                           style: kBoldTextStyle.copyWith(fontSize: 30),
                         ),
                       ),
@@ -140,21 +140,21 @@ class _LoginPageState extends State<LoginPage> {
                         height: 55,
                       ),
                       LoginTextField(
-                          label: 'Username',
+                          label: 'Имя пользователя',
                           controller: _usernameController,
                           isPassword: false),
                       const SizedBox(
                         height: 20,
                       ),
                       LoginTextField(
-                          label: 'Password',
+                          label: 'Пароль',
                           controller: _passwordController,
                           isPassword: true),
                       const SizedBox(
                         height: 42,
                       ),
                       GradientButton(
-                        title: 'Login',
+                        title: 'Вход',
                         ontap: () async {
                           if (_formKey.currentState?.validate() ?? false) {
                             await _login();

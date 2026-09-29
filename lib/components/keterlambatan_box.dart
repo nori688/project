@@ -30,7 +30,7 @@ class KeterlambatanBox extends StatelessWidget {
               style: kBoldTextStyle.copyWith(fontSize: 14),
             ),
             Text(
-              DateFormat('d MMMM yyyy - HH:mm').format(date),
+              DateFormat('d MMMM yyyy - HH:mm', 'ru_RU').format(date),
               textAlign: TextAlign.start,
               style: kRegularTextStyle.copyWith(fontSize: 12, color: kGrey),
             ),

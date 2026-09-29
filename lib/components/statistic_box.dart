@@ -30,11 +30,11 @@ class StatisticBox extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                        "Log Keluar-Masuk",
+                        "Журнал входа/выхода",
                         textAlign: TextAlign.start,
                         style: kBoldTextStyle.copyWith(fontSize: 14)),
                     const Text(
-                      "Statistik Keluar-Masuk Asrama",
+                      "Статистика входа/выхода в общежитии",
                       style: TextStyle(fontSize: 10),
                     )
                   ]),
@@ -53,7 +53,7 @@ class StatisticBox extends StatelessWidget {
                     children: [
                       Icon(Icons.download_sharp, color: kWhite),
                       Text(
-                        "Unduh",
+                        "Скачать",
                         style: TextStyle(
                             color: kWhite, fontWeight: FontWeight.w600),
                       )

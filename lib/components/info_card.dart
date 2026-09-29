@@ -80,7 +80,7 @@ class _InformasiCardState extends State<InformasiCard> {
                       });
                     },
                     child: Text(
-                      (_maxLines == 5) ? 'Baca Selengkapnya' : 'Tutup',
+                      (_maxLines == 5) ? 'Читать далее' : 'Закрыть',
                       style: const TextStyle(
                           color: Colors.red, fontWeight: FontWeight.bold),
                     ),

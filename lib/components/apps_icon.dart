@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:my_dorm/constant/constant.dart';
 
 class AppsIcon extends StatelessWidget {
-  final IconData icon;
+  final FaIconData icon;
   final String title;
   final Widget pushWidget;
   const AppsIcon({
@@ -26,7 +27,7 @@ class AppsIcon extends StatelessWidget {
             constraints: const BoxConstraints(minHeight: 60, minWidth: 80),
             child: Column(
               children: [
-                Icon(
+                FaIcon(
                   icon,
                   size: 30,
                   color: kMain,

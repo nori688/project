@@ -16,7 +16,7 @@ class UnavailableFeaturesPage extends StatelessWidget {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          const AppBarPage(title: 'Judul Fitur'),
+          const AppBarPage(title: 'Название функции'),
           Column(
             children: [
               Icon(
@@ -25,7 +25,7 @@ class UnavailableFeaturesPage extends StatelessWidget {
                 color: kRed,
               ),
               SizedBox(height: 25),
-              Text("Maaf fitur ini belum tersedia"),
+              Text("Извините, эта функция пока недоступна"),
             ],
           ),
           Padding(
@@ -34,7 +34,7 @@ class UnavailableFeaturesPage extends StatelessWidget {
                 ontap: () {
                   Navigator.pop(context);
                 },
-                title: 'Kembali'),
+                title: 'Назад'),
           )
         ],
       ),

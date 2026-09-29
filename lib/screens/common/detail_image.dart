@@ -22,7 +22,7 @@ class _DetailImagePageState extends State<DetailImagePage> {
     return Scaffold(
         body: Column(children: [
       const AppBarPage(
-        title: 'Detail Gambar',
+        title: 'Просмотр изображения',
       ),
       Padding(
         padding: const EdgeInsets.symmetric(vertical: 15),

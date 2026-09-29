@@ -60,11 +60,11 @@ class _ListPelanggaranPageState extends State<ListPelanggaranPage> {
         }
         kamarId = parsedData[0]['kamar']['kamar_id'];
       });
-      dev.log('Kamar ID: $kamarId');
+      dev.log('ID комнаты: $kamarId');
     } catch (e) {
       print(e);
       setState(() {
-        error = "Error: $e";
+        error = "Ошибка: $e";
       });
     }
   }
@@ -87,12 +87,12 @@ class _ListPelanggaranPageState extends State<ListPelanggaranPage> {
     } catch (e) {
       print(e);
       setState(() {
-        error = "Error: $e";
+        error = "Ошибка: $e";
       });
     } finally {
-      dev.log('Pelanggaran length: ${pelanggarans.length}');
+      dev.log('Количество нарушений: ${pelanggarans.length}');
       for (int i = 0; i < pelanggarans.length; i++) {
-        print('Pelanggaran ${i + 1}: ${pelanggarans[i]}');
+        print('Нарушение ${i + 1}: ${pelanggarans[i]}');
         for (int j = 0; j < dormitizens.length; j++) {
           if ((pelanggarans[i]['pelanggar']['nama'] ==
                   dormitizens[j]['nama']) &&
@@ -115,7 +115,7 @@ class _ListPelanggaranPageState extends State<ListPelanggaranPage> {
       body: Column(
         children: [
           AppBarPage(
-            title: 'Pelanggaran Kamar ${widget.noKamar}',
+            title: 'Нарушения: комната ${widget.noKamar}',
             onAdd: () async {
               final result = await Navigator.push(
                 context,
@@ -139,7 +139,7 @@ class _ListPelanggaranPageState extends State<ListPelanggaranPage> {
           else if (dormitizens.isEmpty)
             Center(
               child: Text(
-                "Tidak ada Dormitizen di kamar ini",
+                "В этой комнате нет проживающих",
                 style: kMediumTextStyle.copyWith(color: Colors.grey),
               ),
             )

@@ -49,12 +49,12 @@ class RequestBox extends StatelessWidget {
                             style: kMediumTextStyle.copyWith(
                                 fontSize: 12, color: Colors.black),
                             children: [
-                          const TextSpan(text: 'konfirmasi '),
+                          const TextSpan(text: 'подтверждение '),
                           TextSpan(
-                              text: (type == 'In') ? 'masuk' : 'keluar',
+                              text: (type == 'In') ? 'вход' : 'выход',
                               style: kBoldTextStyle.copyWith(
                                   fontSize: 14, color: kRed)),
-                          const TextSpan(text: ' asrama'),
+                          const TextSpan(text: ' общежитие'),
                         ])),
                   ]),
             ),

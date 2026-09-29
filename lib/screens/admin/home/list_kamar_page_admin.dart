@@ -38,16 +38,16 @@ class _ListKamarPageAdminState extends State<ListKamarPageAdmin> {
               .map((item) => item as Map<String, dynamic>)
               .toList();
         });
-        print('Data Kamar: $kamars');
+        print('Комнаты: $kamars');
       } else {
         setState(() {
-          error = "Data kamar dormitizen kosong.";
+          error = "Нет данных о комнатах.";
         });
       }
     } catch (e) {
       print(e);
       setState(() {
-        error = "Error: $e";
+        error = "Ошибка: $e";
       });
     } finally {
       setState(() {
@@ -69,7 +69,7 @@ class _ListKamarPageAdminState extends State<ListKamarPageAdmin> {
       body: Column(
         children: [
           const AppBarPage(
-            title: 'Kamar',
+            title: 'Комнаты',
             canBack: false,
           ),
           const SizedBox(height: 10),
@@ -101,7 +101,7 @@ class _ListKamarPageAdminState extends State<ListKamarPageAdmin> {
                   return Column(
                     children: [
                       Text(
-                        'Lantai $floorNumber',
+                        'Этаж $floorNumber',
                         style: kBoldTextStyle.copyWith(fontSize: 24),
                       ),
                       const SizedBox(height: 10),
@@ -156,7 +156,7 @@ class _ListKamarPageAdminState extends State<ListKamarPageAdmin> {
                                 ),
                                 child: Center(
                                   child: Text(
-                                    'N/A',
+                                    'Н/Д',
                                     textAlign: TextAlign.center,
                                     style: kBoldTextStyle.copyWith(
                                       fontSize: 24,

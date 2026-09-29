@@ -12,7 +12,7 @@ class Konfirmasi extends StatelessWidget {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          AppBarPage(title: 'Konfirmasi'),
+          AppBarPage(title: 'Подтверждение'),
           Column(
             children: [
               Container(
@@ -29,14 +29,14 @@ class Konfirmasi extends StatelessWidget {
               ),
               SizedBox(height: 20),
               Text(
-                'Data berhasil ditambahkan!',
+                'Данные успешно добавлены!',
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
               )
             ],
           ),
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 60, horizontal: 30),
-            child: GradientButton(ontap: () {}, title: 'Kembali'),
+            child: GradientButton(ontap: () {}, title: 'Назад'),
           )
         ],
       ),

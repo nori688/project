@@ -1,4 +1,4 @@
-import 'dart:io';
+import 'package:cross_file/cross_file.dart';
 
 import 'package:flutter/material.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
@@ -23,7 +23,7 @@ class _AddInformasiPageState extends State<AddInformasiPage> {
 
   final _formKey = GlobalKey<FormState>();
 
-  File? gambar;
+  XFile? gambar;
   String? selectedKategori;
 
   String error = "";
@@ -42,7 +42,7 @@ class _AddInformasiPageState extends State<AddInformasiPage> {
         'isi': _deskripsiController.text,
       };
       response = await postDataTokenWithImage("/informasi", data, gambar);
-      print('berhasil tambah laporan!');
+      print('отчёт успешно добавлен!');
 
       print(response['message']);
     } catch (e) {
@@ -50,7 +50,7 @@ class _AddInformasiPageState extends State<AddInformasiPage> {
         _showSpinner = false;
         error = "${response['message']}";
       });
-      print('Login error: $e');
+      print('Ошибка входа: $e');
       print(response);
     }
     setState(() {
@@ -66,7 +66,7 @@ class _AddInformasiPageState extends State<AddInformasiPage> {
         inAsyncCall: _showSpinner,
         child: Column(
           children: [
-            const AppBarPage(title: 'Tambah Informasi'),
+            const AppBarPage(title: 'Добавить информацию'),
             Expanded(
                 child: SingleChildScrollView(
               child: Padding(
@@ -79,13 +79,13 @@ class _AddInformasiPageState extends State<AddInformasiPage> {
                         height: 12,
                       ),
                       FormPhotoPicker(
-                        title: 'informasi',
+                        title: 'информация',
                         onImageSelected: (selectedImage) {
                           // Handle the selected image here
                           if (selectedImage != null) {
-                            print('Selected image path: ${selectedImage.path}');
+                            print('Путь к изображению: ${selectedImage.path}');
                           } else {
-                            print('Image cleared');
+                            print('Изображение удалено');
                           }
                           setState(() {
                             gambar = selectedImage;
@@ -93,24 +93,24 @@ class _AddInformasiPageState extends State<AddInformasiPage> {
                         },
                       ),
                       FormDropDown(
-                          title: 'Kategori',
+                          title: 'Категория',
                           kategoriItems: const [
-                            'fasilitas asrama',
-                            'event asrama',
-                            'lingkungan asrama',
-                            'peraturan asrama',
+                            'удобства общежития',
+                            'мероприятия общежития',
+                            'жизнь общежития',
+                            'правила общежития',
                           ],
                           onItemSelected: (selectedItem) {
                             // Handle the selected item here
-                            print('Selected item: $selectedItem');
+                            print('Выбран элемент: $selectedItem');
                             setState(() {
                               selectedKategori = selectedItem;
                             });
                           }),
                       FormTextField(
-                          label: 'Judul', controller: _judulController),
+                          label: 'Заголовок', controller: _judulController),
                       FormTextField(
-                        label: 'Deskripsi',
+                        label: 'Описание',
                         controller: _deskripsiController,
                         minLines: 3,
                       ),
@@ -124,7 +124,7 @@ class _AddInformasiPageState extends State<AddInformasiPage> {
 
                                   // Create the SnackBar
                                   const snackBar = SnackBar(
-                                    content: Text('Data berhasil ditambahkan!'),
+                                    content: Text('Данные успешно добавлены!'),
                                   );
 
                                   // Show the SnackBar
@@ -137,7 +137,7 @@ class _AddInformasiPageState extends State<AddInformasiPage> {
                               }
                             }
                           },
-                          title: 'Tambah')
+                          title: 'Добавить')
                     ],
                   ),
                 ),

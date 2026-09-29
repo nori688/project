@@ -34,7 +34,7 @@ class PIlihRole extends StatelessWidget {
                     height: height * 0.08,
                   ),
                   Text(
-                    "Pilih role Anda",
+                    "Выберите вашу роль",
                     style: kSemiBoldTextStyle.copyWith(color: kWhite),
                   ),
                   SizedBox(
@@ -51,7 +51,7 @@ class PIlihRole extends StatelessWidget {
                       width: width,
                       height: height,
                       image: 'images/dormitizen.png',
-                      title: 'Dormitizen',
+                      title: 'Проживающий',
                     ),
                   ),
                   SizedBox(
@@ -66,7 +66,7 @@ class PIlihRole extends StatelessWidget {
                       width: width,
                       height: height,
                       image: 'images/helpdesk.png',
-                      title: 'Helpdesk',
+                      title: 'Хелпдеск',
                     ),
                   )
                 ],

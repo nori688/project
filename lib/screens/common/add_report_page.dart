@@ -34,7 +34,7 @@ class _AddReportPageState extends State<AddReportPage> {
         'isi': _deskripsiController.text,
       };
       response = await postDataToken("/laporan", data);
-      print('berhasil tambah laporan!');
+      print('отчёт успешно добавлен!');
       if (mounted) {
         Navigator.pop(context, 'sesuatu');
       }
@@ -44,7 +44,7 @@ class _AddReportPageState extends State<AddReportPage> {
         _showSpinner = false;
         error = "${response['message']}";
       });
-      print('Login error: $e');
+      print('Ошибка входа: $e');
       print(response);
     }
     setState(() {
@@ -60,7 +60,7 @@ class _AddReportPageState extends State<AddReportPage> {
         inAsyncCall: _showSpinner,
         child: Column(
           children: [
-            const AppBarPage(title: 'Tambah Laporan'),
+            const AppBarPage(title: 'Добавить отчёт'),
             Expanded(
                 child: SingleChildScrollView(
               child: Padding(
@@ -78,9 +78,9 @@ class _AddReportPageState extends State<AddReportPage> {
                         height: 12,
                       ),
                       FormTextField(
-                          label: 'Judul', controller: _judulController),
+                          label: 'Заголовок', controller: _judulController),
                       FormTextField(
-                        label: 'Deskripsi',
+                        label: 'Описание',
                         controller: _deskripsiController,
                         minLines: 3,
                       ),
@@ -90,7 +90,7 @@ class _AddReportPageState extends State<AddReportPage> {
                               await _addReport();
                             }
                           },
-                          title: 'Kirim')
+                          title: 'Отправить')
                     ],
                   ),
                 ),

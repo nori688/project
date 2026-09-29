@@ -52,16 +52,16 @@ class _RegisterPageState extends State<RegisterPage> {
               MaterialPageRoute(builder: (context) => const PIlihRole()));
         }
       }
-      print('berhasil login!');
+      print('успешный вход!');
       String? accessToken = await getToken();
       print(accessToken);
     } catch (e) {
       setState(() {
         _showSpinner = false;
-        error = "Email atau Password salah";
+        error = "Неверный email или пароль";
       });
       error = "${response['message']}";
-      print('Login error: $e');
+      print('Ошибка входа: $e');
       print(response);
     }
     setState(() {
@@ -82,7 +82,7 @@ class _RegisterPageState extends State<RegisterPage> {
         'nama': _namaController.text,
       };
       response = await postData("/dormitizen/register", data);
-      print('berhasil daftar!');
+      print('успешная регистрация!');
       await _login();
     } catch (e) {
       print(response);
@@ -90,7 +90,7 @@ class _RegisterPageState extends State<RegisterPage> {
         _showSpinner = false;
         error = e.toString();
       });
-      print('Register error: $e');
+      print('Ошибка регистрации: $e');
     }
     setState(() {
       _showSpinner = false;
@@ -143,7 +143,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       Align(
                         alignment: Alignment.centerLeft,
                         child: Text(
-                          'Login',
+                          'Регистрация',
                           style: kBoldTextStyle.copyWith(fontSize: 30),
                         ),
                       ),
@@ -151,14 +151,14 @@ class _RegisterPageState extends State<RegisterPage> {
                         height: 55,
                       ),
                       LoginTextField(
-                          label: 'Username',
+                          label: 'Имя пользователя',
                           controller: _usernameController,
                           isPassword: false),
                       const SizedBox(
                         height: 20,
                       ),
                       LoginTextField(
-                          label: 'Password',
+                          label: 'Пароль',
                           controller: _passwordController,
                           isPassword: true),
                       const SizedBox(
@@ -172,14 +172,14 @@ class _RegisterPageState extends State<RegisterPage> {
                         height: 20,
                       ),
                       LoginTextField(
-                          label: 'Nama',
+                          label: 'Имя',
                           controller: _namaController,
                           isPassword: false),
                       const SizedBox(
                         height: 42,
                       ),
                       GradientButton(
-                        title: 'Register',
+                        title: 'Регистрация',
                         ontap: () async {
                           if (_formKey.currentState?.validate() ?? false) {
                             await _register();
@@ -211,11 +211,11 @@ class _RegisterPageState extends State<RegisterPage> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
-                              'Sudah ada akun? ',
+                              'Уже есть аккаунт? ',
                               style: kRegularTextStyle.copyWith(fontSize: 16),
                             ),
                             Text(
-                              'Login',
+                              'Вход',
                               style: kBoldTextStyle.copyWith(
                                   fontSize: 16, color: kMain),
                             ),

@@ -40,7 +40,7 @@ class _ListPaketPageState extends State<ListPaketPage> {
 
   String formatTanggal(String tanggal) {
     DateTime dateTime = DateTime.parse(tanggal).toLocal();
-    return DateFormat('dd MMM yyyy, HH:mm').format(dateTime);
+    return DateFormat('dd MMM yyyy, HH:mm', 'ru_RU').format(dateTime);
   }
 
   Future<void> getPaket({String? search}) async {
@@ -64,7 +64,7 @@ class _ListPaketPageState extends State<ListPaketPage> {
           pakets = (response['data'] as List)
               .map((item) => item as Map<String, dynamic>)
               .toList();
-          print('Data Paket: $pakets');
+          print('Посылки: $pakets');
           pakets_belum = [];
           pakets_sudah = [];
           for (int i = 0; i < pakets.length; i++) {
@@ -77,13 +77,13 @@ class _ListPaketPageState extends State<ListPaketPage> {
         });
       } else {
         setState(() {
-          error = "Data paket dormitizen kosong.";
+          error = "Нет данных о посылках.";
         });
       }
     } catch (e) {
       print(e);
       setState(() {
-        error = "Error: $e";
+        error = "Ошибка: $e";
       });
     }
     setState(() {
@@ -99,11 +99,11 @@ class _ListPaketPageState extends State<ListPaketPage> {
     try {
       await deleteDataToken('/paket/$id');
 
-      print('Paket dengan ID $id berhasil dihapus');
+      print('Посылка с ID $id успешно удалена');
     } catch (e) {
       print(e);
       setState(() {
-        error = "Error: $e";
+        error = "Ошибка: $e";
       });
     } finally {
       setState(() {
@@ -120,11 +120,11 @@ class _ListPaketPageState extends State<ListPaketPage> {
     try {
       await updateDataTokenTanpaBody('/paket/$id');
 
-      print('Paket dengan ID $id berhasil diupdate');
+      print('Посылка с ID $id успешно обновлена');
     } catch (e) {
       print(e);
       setState(() {
-        error = "Error: $e";
+        error = "Ошибка: $e";
       });
     } finally {
       setState(() {
@@ -181,7 +181,7 @@ class _ListPaketPageState extends State<ListPaketPage> {
                   Positioned(
                     bottom: 8,
                     left: 8,
-                    child: Text("Ketuk untuk memperbesar",
+                    child: Text("Нажмите, чтобы увеличить",
                         style: kSemiBoldTextStyle.copyWith(
                             fontSize: 12, color: kWhite)),
                   ),
@@ -197,7 +197,7 @@ class _ListPaketPageState extends State<ListPaketPage> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Icon(
+                  const FaIcon(
                     FontAwesomeIcons.locationPin,
                     size: 18,
                     color: kRed,
@@ -206,12 +206,12 @@ class _ListPaketPageState extends State<ListPaketPage> {
                   Expanded(
                       child: paket['status_pengambilan'] == "belum"
                           ? Text(
-                              "Helpdesk",
+                              "Хелпдеск",
                               style: kSemiBoldTextStyle.copyWith(
                                   fontSize: 12, color: kRed),
                             )
                           : Text(
-                              "Kamar ${paket['pemilik_paket']['kamar']['nomor']}",
+                              "Комната ${paket['pemilik_paket']['kamar']['nomor']}",
                               style: kSemiBoldTextStyle.copyWith(
                                   fontSize: 12, color: kRed),
                             ))
@@ -223,7 +223,7 @@ class _ListPaketPageState extends State<ListPaketPage> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Icon(
+                  const FaIcon(
                     FontAwesomeIcons.solidCircleUser,
                     size: 18,
                   ),
@@ -231,7 +231,7 @@ class _ListPaketPageState extends State<ListPaketPage> {
                   if (paket['penerima_paket']['nama'] != null)
                     Expanded(
                       child: Text(
-                        "${paket['penerima_paket']['nama']} (Pj Penerimaan)",
+                        "${paket['penerima_paket']['nama']} (ответственный за приём)",
                         style: kSemiBoldTextStyle.copyWith(fontSize: 12),
                       ),
                     )
@@ -241,7 +241,7 @@ class _ListPaketPageState extends State<ListPaketPage> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const Icon(
+                    const FaIcon(
                       FontAwesomeIcons.solidCircleUser,
                       size: 18,
                     ),
@@ -249,7 +249,7 @@ class _ListPaketPageState extends State<ListPaketPage> {
                     if (paket['penyerah_paket']['nama'] != null)
                       Expanded(
                         child: Text(
-                          "${paket['penyerah_paket']['nama']} (Pj Penerimaan)",
+                          "${paket['penyerah_paket']['nama']} (ответственный за приём)",
                           style: kSemiBoldTextStyle.copyWith(fontSize: 12),
                         ),
                       )
@@ -266,7 +266,7 @@ class _ListPaketPageState extends State<ListPaketPage> {
                     size: 18,
                   ),
                   const SizedBox(width: 5),
-                  Text("${formatTanggal(paket['waktu_tiba'])} (Diterima)"),
+                  Text("${formatTanggal(paket['waktu_tiba'])} (получена)"),
                 ],
               ),
               if (paket['status_pengambilan'] == "sudah")
@@ -283,7 +283,7 @@ class _ListPaketPageState extends State<ListPaketPage> {
                     ),
                     const SizedBox(width: 5),
                     Text(
-                        "${formatTanggal(paket['waktu_diambil'])} (Diserahkan)"),
+                        "${formatTanggal(paket['waktu_diambil'])} (вручена)"),
                   ],
                 ),
               Padding(
@@ -299,14 +299,14 @@ class _ListPaketPageState extends State<ListPaketPage> {
                           Navigator.of(context).pop();
                           await getPaket();
                         },
-                        title: "Selesai"),
+                        title: "Завершить"),
                     const SizedBox(
                       height: 10,
                     ),
                     OutlineButton(
                         ontap: () {
-                          confirmDialog(context, "Konfirmasi Penghapusan",
-                              "Apakah anda yakin ingin menghapus data paket ini",
+                          confirmDialog(context, "Подтверждение удаления",
+                              "Вы уверены, что хотите удалить данные этой посылки?",
                               () async {
                             await deletePaket(paket['paket_id']);
                             Navigator.of(context).pop();
@@ -314,7 +314,7 @@ class _ListPaketPageState extends State<ListPaketPage> {
                             await getPaket();
                           });
                         },
-                        title: "Hapus Paket"),
+                        title: "Удалить посылку"),
                   ],
                 ),
               ),
@@ -345,7 +345,7 @@ class _ListPaketPageState extends State<ListPaketPage> {
         body: SingleChildScrollView(
           child: Column(children: [
             AppBarPage(
-              title: 'Paket',
+              title: 'Посылки',
               onAdd: (role == 'helpdesk')
                   ? () {
                       _navigateAndDisplayResult(context);
@@ -374,7 +374,7 @@ class _ListPaketPageState extends State<ListPaketPage> {
                               child: TextField(
                             controller: _searchController,
                             decoration: const InputDecoration(
-                                hintText: 'nama penerima',
+                                hintText: 'имя получателя',
                                 border: InputBorder.none,
                                 isDense: true),
                             onChanged: (value) {
@@ -406,7 +406,7 @@ class _ListPaketPageState extends State<ListPaketPage> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Text(
-                    'Paket belum diambil :',
+                    'Посылки не получены:',
                     style: kBoldTextStyle.copyWith(fontSize: 14),
                   ),
                   const SizedBox(
@@ -430,8 +430,8 @@ class _ListPaketPageState extends State<ListPaketPage> {
                                           onLongPress: () {
                                             confirmDialog(
                                                 context,
-                                                "Konfirmasi Penghapusan",
-                                                "Apakah anda yakin ingin menghapus data paket ini?",
+                                                "Подтверждение удаления",
+                                                "Вы уверены, что хотите удалить данные этой посылки?",
                                                 () async {
                                               await deletePaket(
                                                   pakets_belum[index]
@@ -463,7 +463,7 @@ class _ListPaketPageState extends State<ListPaketPage> {
                                             padding: const EdgeInsets.all(15.0),
                                             child: Row(
                                               children: [
-                                                const Icon(
+                                                const FaIcon(
                                                   FontAwesomeIcons.check,
                                                   size: 16,
                                                   color: kWhite,
@@ -472,7 +472,7 @@ class _ListPaketPageState extends State<ListPaketPage> {
                                                   width: 5,
                                                 ),
                                                 Text(
-                                                  "Selesai",
+                                                  "Завершить",
                                                   style:
                                                       kBoldTextStyle.copyWith(
                                                           color: kWhite,
@@ -490,7 +490,7 @@ class _ListPaketPageState extends State<ListPaketPage> {
                     height: 10,
                   ),
                   Text(
-                    'Paket sudah diambil :',
+                    'Посылки получены:',
                     style: kBoldTextStyle.copyWith(fontSize: 14),
                   ),
                   (_showSpinner)
@@ -510,8 +510,8 @@ class _ListPaketPageState extends State<ListPaketPage> {
                                       onLongPress: () {
                                         confirmDialog(
                                             context,
-                                            "Konfirmasi Penghapusan",
-                                            "Apakah anda yakin ingin menghapus data paket ini",
+                                            "Подтверждение удаления",
+                                            "Вы уверены, что хотите удалить данные этой посылки?",
                                             () async {
                                           await deletePaket(
                                               pakets_sudah[index]['paket_id']);

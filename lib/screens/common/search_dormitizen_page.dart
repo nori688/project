@@ -9,7 +9,7 @@ class SearchDormitizenPage extends StatelessWidget {
     return const Scaffold(
         body: Column(children: [
       AppBarPage(
-        title: 'Cari Dormitizen',
+        title: 'Найти проживающего',
       ),
     ]));
   }

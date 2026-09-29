@@ -13,21 +13,21 @@ class FaqListPage extends StatelessWidget {
   Widget build(BuildContext context) {
     List<FaqModel> daftarFAQ = [
       FaqModel(
-          title: "Apa itu MyDorm?",
+          title: "Что такое MyDorm?",
           content:
-              "MyDorm merupakan inovasi yang di desain khusus untuk pengguna yang tinggal di asrama Telkom University. MyDorm merupakan penerapan solusi untuk memecahkan permasalahan utama yang dihadapi oleh penghuni asrama, yaitu masalah pencatatan keluar-masuk asrama dan manajemen kiriman paket. Dengan hadirnya aplikasi MyDorm, penghuni asrama dapat dengan mudah melacak keluar-masuk dengan lebih efisien dan akurat. Melalui aplikasi ini juga dapat dengan mudah mengetahui kiriman paket yang telah sampai dan dititipkan pada helpdesk.",
+              "MyDorm — это инновация, разработанная специально для жителей общежития Telkom University. MyDorm решает главные проблемы жителей общежития: учёт входа/выхода и управление посылками. С приложением MyDorm жители общежития могут легко и точно отслеживать свой вход и выход, а также узнавать о посылках, которые доставлены и оставлены в хелпдеске.",
           hasImage: false,
       ),
       FaqModel(
-          title: "Bagaimana cara mengetahui adanya paket?",
+          title: "Как узнать о поступившей посылке?",
           content:
-              "Aplikasi MyDorm memiliki fitur notifikasi yang dapat menginformasikan kepada pengguna apabila terdapat informasi penting yang perlu disampaikan, termasuk salah satunya paket yang datang. Paket yang datang akan ditangani langsung oleh Helpdesk maupun Senior Resident dan akan dikabarkan kepada pemilik paket melalui notifikasi.",
+              "В приложении MyDorm есть уведомления, которые сообщают пользователям о важной информации, в том числе о поступивших посылках. Поступившие посылки обрабатываются хелпдеском или старшим резидентом, а владелец посылки получает уведомление.",
           hasImage: false
       ),
       FaqModel(
-          title: "Bagaimana cara konfirmasi keluar-masuk?",
+          title: "Как подтвердить вход/выход?",
           content:
-              '1. Pergi ke halaman beranda\n2. Pilih opsi "masuk/keluar"\n3. Klik opsi "masuk/keluar" dan anda suadh berhasil konfirmasi masuk/keluar',
+              '1. Откройте главную страницу\n2. Выберите опцию «вход/выход»\n3. Нажмите опцию «вход/выход» — и вы подтвердите вход/выход',
           hasImage: true
           
       )

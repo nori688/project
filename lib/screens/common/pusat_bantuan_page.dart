@@ -14,7 +14,7 @@ class PusatBantuanPage extends StatelessWidget {
       backgroundColor: kBgColor,
       body: Column(
         children: [
-          const AppBarPage(title: 'Pusat bantuan'),
+          const AppBarPage(title: 'Центр помощи'),
           Padding(
             padding: const EdgeInsets.all(12.0),
             child: Icon(
@@ -63,7 +63,7 @@ class PusatBantuanPage extends StatelessWidget {
                     width: 12,
                   ),
                   Text(
-                    'Laporkan Masalah',
+                    'Сообщить о проблеме',
                     style: kBoldTextStyle.copyWith(fontSize: 14, color: kMain),
                   ),
                   const Spacer(),

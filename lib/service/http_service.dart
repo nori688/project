@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'dart:io';
+import 'package:cross_file/cross_file.dart';
 
 import 'package:http/http.dart' as http;
 import 'package:http_parser/http_parser.dart';
@@ -23,11 +23,11 @@ Future<Map<String, dynamic>> getDataToken(String address, String token) async {
   if (response.statusCode == 200) {
     return jsonDecode(response.body);
   } else if (response.statusCode == 401 || response.statusCode == 403) {
-    throw Exception('Unauthorized or Forbidden');
+    throw Exception('Не авторизован или запрещено');
   } else {
-    print('Failed to load user details. Status code: ${response.statusCode}');
-    print('Response body: ${response.body}');
-    throw Exception('Failed to load user details');
+    print('Не удалось загрузить данные пользователя. Код: ${response.statusCode}');
+    print('Тело ответа: ${response.body}');
+    throw Exception('Не удалось загрузить данные пользователя');
   }
 }
 
@@ -41,12 +41,12 @@ Future<Map<String, dynamic>> logout(String token) async {
   );
 
   if (response.statusCode == 200) {
-    print('we got here');
+    print('мы здесь');
     return jsonDecode(response.body);
   } else {
-    print('Failed to load user details. Status code: ${response.statusCode}');
-    print('Response body: ${response.body}');
-    throw Exception('Failed to load user details');
+    print('Не удалось загрузить данные пользователя. Код: ${response.statusCode}');
+    print('Тело ответа: ${response.body}');
+    throw Exception('Не удалось загрузить данные пользователя');
   }
 }
 
@@ -64,8 +64,8 @@ Future<Map<String, dynamic>> postData(
   if (response.statusCode == 200 || response.statusCode == 201) {
     return jsonDecode(response.body);
   } else {
-    print('Failed to post data. Status code: ${response.statusCode}');
-    print('Response body: ${response.body}');
+    print('Не удалось отправить данные. Код: ${response.statusCode}');
+    print('Тело ответа: ${response.body}');
     return jsonDecode(response.body);
   }
 }
@@ -74,11 +74,11 @@ Future<Map<String, dynamic>> postData(
 Future<dynamic> postDataTokenWithImage(
   String endpoint,
   Map<String, String> data,
-  File? imageFile,
+  XFile? imageFile,
 ) async {
   String? token = await getToken();
   if (token == null) {
-    throw Exception('Token not found');
+    throw Exception('Токен не найден');
   }
 
   Map<String, String> headers = {
@@ -88,8 +88,9 @@ Future<dynamic> postDataTokenWithImage(
 
   var request = http.MultipartRequest('POST', Uri.parse('$apiURL$endpoint'));
   request.headers['Authorization'] = 'Bearer $token';
-  var mimeType = lookupMimeType(imageFile!.path);
-  var bytes = await File.fromUri(Uri.parse(imageFile.path)).readAsBytes();
+  var mimeType =
+      imageFile!.mimeType ?? lookupMimeType(imageFile.path) ?? 'image/jpeg';
+  var bytes = await imageFile.readAsBytes();
   http.MultipartFile multipartFile = http.MultipartFile.fromBytes(
       'gambar', bytes,
       filename: basename(imageFile.path),
@@ -112,11 +113,11 @@ Future<dynamic> postDataTokenWithImage(
 Future<dynamic> postDataTokenWithFile(
   String endpoint,
   Map<String, String> data,
-  File? imageFile,
+  XFile? imageFile,
 ) async {
   String? token = await getToken();
   if (token == null) {
-    throw Exception('Token not found');
+    throw Exception('Токен не найден');
   }
 
   Map<String, String> headers = {
@@ -126,8 +127,9 @@ Future<dynamic> postDataTokenWithFile(
 
   var request = http.MultipartRequest('POST', Uri.parse('$apiURL$endpoint'));
   request.headers['Authorization'] = 'Bearer $token';
-  var mimeType = lookupMimeType(imageFile!.path);
-  var bytes = await File.fromUri(Uri.parse(imageFile.path)).readAsBytes();
+  var mimeType =
+      imageFile!.mimeType ?? lookupMimeType(imageFile.path) ?? 'image/jpeg';
+  var bytes = await imageFile.readAsBytes();
   http.MultipartFile multipartFile = http.MultipartFile.fromBytes('file', bytes,
       filename: basename(imageFile.path),
       contentType: MediaType.parse(mimeType.toString()));
@@ -165,11 +167,11 @@ Future<dynamic> updateDataToken(
 Future<dynamic> updateDataTokenWithImage(
   String endpoint,
   Map<String, String> data,
-  File? imageFile,
+  XFile? imageFile,
 ) async {
   String? token = await getToken();
   if (token == null) {
-    throw Exception('Token not found');
+    throw Exception('Токен не найден');
   }
 
   Map<String, String> headers = {
@@ -179,8 +181,9 @@ Future<dynamic> updateDataTokenWithImage(
 
   var request = http.MultipartRequest('PUT', Uri.parse('$apiURL$endpoint'));
   request.headers['Authorization'] = 'Bearer $token';
-  var mimeType = lookupMimeType(imageFile!.path);
-  var bytes = await File.fromUri(Uri.parse(imageFile.path)).readAsBytes();
+  var mimeType =
+      imageFile!.mimeType ?? lookupMimeType(imageFile.path) ?? 'image/jpeg';
+  var bytes = await imageFile.readAsBytes();
   http.MultipartFile multipartFile = http.MultipartFile.fromBytes(
       'gambar', bytes,
       filename: basename(imageFile.path),
@@ -203,11 +206,11 @@ Future<dynamic> updateDataTokenWithImage(
 Future<dynamic> updateDataTokenWithFile(
   String endpoint,
   Map<String, String> data,
-  File? imageFile,
+  XFile? imageFile,
 ) async {
   String? token = await getToken();
   if (token == null) {
-    throw Exception('Token not found');
+    throw Exception('Токен не найден');
   }
 
   Map<String, String> headers = {
@@ -217,8 +220,9 @@ Future<dynamic> updateDataTokenWithFile(
 
   var request = http.MultipartRequest('PUT', Uri.parse('$apiURL$endpoint'));
   request.headers['Authorization'] = 'Bearer $token';
-  var mimeType = lookupMimeType(imageFile!.path);
-  var bytes = await File.fromUri(Uri.parse(imageFile.path)).readAsBytes();
+  var mimeType =
+      imageFile!.mimeType ?? lookupMimeType(imageFile.path) ?? 'image/jpeg';
+  var bytes = await imageFile.readAsBytes();
   http.MultipartFile multipartFile = http.MultipartFile.fromBytes('file', bytes,
       filename: basename(imageFile.path),
       contentType: MediaType.parse(mimeType.toString()));
@@ -239,12 +243,12 @@ Future<dynamic> updateDataTokenWithFile(
 // Fungsi untuk menangani response
 dynamic _handleResponse(http.Response response) {
   if (response.statusCode == 200 || response.statusCode == 201) {
-    print('Response body: ${response.body}');
+    print('Тело ответа: ${response.body}');
     return jsonDecode(response.body);
   } else {
-    print('Failed to post data. Status code: ${response.statusCode}');
+    print('Не удалось отправить данные. Код: ${response.statusCode}');
     print(response.body);
-    throw Exception('Failed to POST');
+    throw Exception('Не удалось выполнить POST');
   }
 }
 
@@ -354,7 +358,7 @@ Future<List<RequestModel>> fetchLogKeluarMasuk({String? queryString}) async {
     final List<dynamic> logs = data['data'];
     return logs.map((json) => RequestModel.fromJson(json)).toList();
   } else {
-    throw Exception('Gagal mengambil data log keluar masuk.');
+    throw Exception('Не удалось получить данные журнала входа/выхода.');
   }
 }
 
@@ -375,7 +379,7 @@ Future<List<RequestModel>> fetchLogKeluarMasukOfDormitizen() async {
     final List data = jsonData['data'];
     return data.map((e) => RequestModel.fromJson(e)).toList();
   } else {
-    throw Exception('Gagal mengambil data log keluar masuk');
+    throw Exception('Не удалось получить данные журнала входа/выхода');
   }
 }
 
@@ -389,10 +393,10 @@ Future<void> updateStatusLog(String id, String aksi) async {
   });
 
   if (response.statusCode == 200) {
-    print('Status berhasil diubah menjadi $aksi');
+    print('Статус успешно изменён на $aksi');
   } else {
     final body = jsonDecode(response.body);
-    throw Exception('Gagal mengubah status: ${body['message']}');
+    throw Exception('Не удалось изменить статус: ${body['message']}');
   }
 }
 
@@ -410,7 +414,7 @@ Future<String> fetchStatusKamar() async {
     final json = jsonDecode(response.body);
     return json['status'];
   } else {
-    throw Exception('Gagal mengambil status kamar');
+    throw Exception('Не удалось получить статус комнаты');
   }
 }
 
@@ -425,7 +429,7 @@ Future<void> requestKeluarMasuk() async {
   });
 
   if (response.statusCode != 201) {
-    throw Exception('Request gagal dengan kode: ${response.statusCode}');
+    throw Exception('Ошибка запроса, код: ${response.statusCode}');
   }
 }
 
@@ -448,7 +452,7 @@ Future<dynamic> addLogManual(Map<String, String> data) async {
   if (response.statusCode >= 200 && response.statusCode < 300) {
     return responseBody;
   } else {
-    throw Exception(responseBody['message'] ?? 'Gagal mengirim data');
+    throw Exception(responseBody['message'] ?? 'Не удалось отправить данные');
   }
 }
 

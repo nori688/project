@@ -1,4 +1,4 @@
-import 'dart:io';
+import 'package:cross_file/cross_file.dart';
 import 'dart:developer' as dev;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -23,7 +23,7 @@ class _AddPelanggaranPageState extends State<AddPelanggaranPage> {
   final TextEditingController _kategoriController = TextEditingController();
   final TextEditingController _kamarController = TextEditingController();
   final TextEditingController _waktuController = TextEditingController();
-  File? gambar;
+  XFile? gambar;
   final List<Map<String, dynamic>> dormitizenDataList = [];
   final _formKey = GlobalKey<FormState>();
   String waktu = "";
@@ -41,32 +41,32 @@ class _AddPelanggaranPageState extends State<AddPelanggaranPage> {
     });
     dynamic response = {};
     try {
-      dev.log('gambar: ${gambar?.path}');
+      dev.log('изображение: ${gambar?.path}');
       Map<String, String> data = {
         'kategori': selectedKategori!,
         'waktu': waktu,
         'dormitizen_id': selectedDormitizen!,
       };
-      dev.log('Data to be sent: $data');
+      dev.log('Отправляемые данные: $data');
       response = await postDataTokenWithFile("/pelanggaran", data, gambar);
-      dev.log('Response from add pelanggaran: $response');
+      dev.log('Ответ на добавление нарушения: $response');
       if (mounted) {
         setState(() {
-          infoSnackbar = 'Pelanggaran berhasil ditambahkan!';
+          infoSnackbar = 'Нарушение успешно добавлено!';
         });
       } else {
         setState(() {
-          infoSnackbar = 'Gagal menambahkan pelanggaran';
+          infoSnackbar = 'Не удалось добавить нарушение';
         });
       }
       print(response['message']);
     } catch (e) {
       setState(() {
         _showSpinner = false;
-        infoSnackbar = 'Pelanggaran gagal ditambahkan!';
+        infoSnackbar = 'Не удалось добавить нарушение!';
         error = "${response['message']}";
       });
-      print('Login error: $e');
+      print('Ошибка входа: $e');
       print(response);
     }
     setState(() {
@@ -94,17 +94,17 @@ class _AddPelanggaranPageState extends State<AddPelanggaranPage> {
             'nama': dormitizen['nama'],
           });
         }
-        print('Data Dormitizen: $dormitizens');
+        print('Проживающие: $dormitizens');
       } else {
-        print('error: ${response['message']}');
+        print('ошибка: ${response['message']}');
         setState(() {
-          error = "Data dormitizen tidak ditemukan.";
+          error = "Проживающий не найден.";
         });
       }
     } catch (e) {
       print(e);
       setState(() {
-        error = "Error: $e";
+        error = "Ошибка: $e";
       });
     } finally {
       setState(() {
@@ -121,7 +121,7 @@ class _AddPelanggaranPageState extends State<AddPelanggaranPage> {
         inAsyncCall: _showSpinner,
         child: Column(
           children: [
-            const AppBarPage(title: 'Tambah Pelanggaran'),
+            const AppBarPage(title: 'Добавить нарушение'),
             Expanded(
               child: SingleChildScrollView(
                 child: Padding(
@@ -137,10 +137,10 @@ class _AddPelanggaranPageState extends State<AddPelanggaranPage> {
                             FilteringTextInputFormatter.digitsOnly,
                           ],
                           decoration:
-                              basicInputDecoration("Nomor kamar").copyWith(
+                              basicInputDecoration("Номер комнаты").copyWith(
                             suffixIcon: IconButton(
                               onPressed: () async {
-                                print('Searching for dormitizen...');
+                                print('Поиск проживающего...');
                                 await searchDormitizen(_kamarController.text);
                               },
                               icon: const Icon(Icons.search),
@@ -148,7 +148,7 @@ class _AddPelanggaranPageState extends State<AddPelanggaranPage> {
                           ),
                           validator: (value) {
                             if (value == null || value.isEmpty) {
-                              return 'Nomor kamar tidak boleh kosong';
+                              return 'Номер комнаты не может быть пустым';
                             }
                             return null;
                           },
@@ -166,7 +166,7 @@ class _AddPelanggaranPageState extends State<AddPelanggaranPage> {
                             style: kMediumTextStyle.copyWith(
                                 fontSize: 16, color: Colors.black),
                             decoration:
-                                basicInputDecoration("Pilih Dormitizen"),
+                                basicInputDecoration("Выберите проживающего"),
                             value: selectedDormitizen,
                             icon: const Icon(Icons.arrow_drop_down),
                             isExpanded: true,
@@ -181,20 +181,20 @@ class _AddPelanggaranPageState extends State<AddPelanggaranPage> {
                               setState(() {
                                 selectedDormitizen = newValue;
                               });
-                              print('Selected Dormitizen: $selectedDormitizen');
+                              print('Выбран проживающий: $selectedDormitizen');
                             },
                           ),
                         ),
                         FormDropDown(
-                          title: 'Kategori',
+                          title: 'Категория',
                           kategoriItems: const [
-                            'Rokok',
-                            'Terlambat',
-                            'Vape',
-                            'Alkohol',
-                            'Barang Terlarang',
-                            'Membawa Lawan Jenis ke dalam Kamar',
-                            'Membawa Teman dari luar Gedung Asrama',
+                            'Курение',
+                            'Опоздание',
+                            'Вейп',
+                            'Алкоголь',
+                            'Запрещённые предметы',
+                            'Нахождение с лицом противоположного пола в комнате',
+                            'Приглашение гостей извне общежития',
                           ],
                           onItemSelected: (selectedItem) {
                             selectedKategori = selectedItem;
@@ -209,16 +209,16 @@ class _AddPelanggaranPageState extends State<AddPelanggaranPage> {
                           },
                         ),
                         FormPhotoPicker(
-                          title: 'Pelanggaran',
+                          title: 'нарушение',
                           onImageSelected: (selectedImage) {
                             if (selectedImage != null) {
                               print(
-                                  'Selected image path: ${selectedImage.path}');
+                                  'Путь к изображению: ${selectedImage.path}');
                               setState(() {
                                 gambar = selectedImage;
                               });
                             } else {
-                              print('Image cleared');
+                              print('Изображение удалено');
                             }
                           },
                         ),
@@ -248,10 +248,10 @@ class _AddPelanggaranPageState extends State<AddPelanggaranPage> {
                                 print(selectedDormitizen);
                               }
                             } else {
-                              print('Form is invalid');
+                              print('Форма недействительна');
                             }
                           },
-                          title: 'Tambah Pelanggaran',
+                          title: 'Добавить нарушение',
                         ),
                       ],
                     ),

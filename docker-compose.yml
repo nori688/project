@@ -1,0 +1,7 @@
+services:
+  mydorm-web:
+    build: .
+    container_name: mydorm-web
+    ports:
+      - "8080:80"
+    restart: unless-stopped

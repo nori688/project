@@ -31,7 +31,7 @@ class _ListMyLogState extends State<ListMyLog> {
         isLoading = false;
       });
     } catch (e) {
-      print("Gagal mengambil log: $e");
+      print("Не удалось получить записи: $e");
       setState(() {
         isLoading = false;
       });
@@ -44,14 +44,14 @@ class _ListMyLogState extends State<ListMyLog> {
     return Scaffold(
         body: Column(children: [
       const AppBarPage(
-        title: 'My Log',
+        title: 'Мой журнал',
       ),
       const SizedBox(height: 20),
       Padding(
         padding: const EdgeInsets.symmetric(horizontal: 30),
         child: Row(
           children: [
-            const Expanded(child: SearchBox(placehold: "Cari Riwayat log")),
+            const Expanded(child: SearchBox(placehold: "Поиск по истории")),
             const SizedBox(
               width: 20,
             ),

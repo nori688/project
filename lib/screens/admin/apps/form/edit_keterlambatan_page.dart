@@ -21,7 +21,7 @@ class _EditKeterlambatanPageState extends State<EditKeterlambatanPage> {
       backgroundColor: kBgColor,
       body: Column(
         children: [
-          const AppBarPage(title: 'Tambah Keterlambatan'),
+          const AppBarPage(title: 'Добавить опоздание'),
           Expanded(
               child: SingleChildScrollView(
             child: Padding(
@@ -33,9 +33,9 @@ class _EditKeterlambatanPageState extends State<EditKeterlambatanPage> {
                     const SizedBox(
                       height: 12,
                     ),
-                    FormTextField(label: 'Judul', controller: _judulController),
+                    FormTextField(label: 'Заголовок', controller: _judulController),
                     FormTextField(
-                      label: 'Deskripsi',
+                      label: 'Описание',
                       controller: _deskripsiController,
                       minLines: 3,
                     ),
@@ -46,7 +46,7 @@ class _EditKeterlambatanPageState extends State<EditKeterlambatanPage> {
 
                                 // Create the SnackBar
                                 const snackBar = SnackBar(
-                                  content: Text('Data berhasil ditambahkan!'),
+                                  content: Text('Данные успешно добавлены!'),
                                 );
 
                                 // Show the SnackBar
@@ -58,7 +58,7 @@ class _EditKeterlambatanPageState extends State<EditKeterlambatanPage> {
                               }
                           }
                         },
-                        title: 'Kirim')
+                        title: 'Отправить')
                   ],
                 ),
               ),

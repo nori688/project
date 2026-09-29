@@ -40,7 +40,7 @@ class _MainNavBarHomeHDState extends State<MainNavBarHomeHD> {
       });
     } catch (e) {
       setState(() {
-        statusKamar = 'Gagal';
+        statusKamar = 'Ошибка';
         isLoading = false;
       });
     }

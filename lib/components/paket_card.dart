@@ -47,21 +47,21 @@ class PaketCard extends StatelessWidget {
               children: [
                 if(paket['pemilik_paket']['kamar'] != null)
                 Text(
-                  "Kamar ${paket['pemilik_paket']['kamar']['nomor'] ?? 'Tidak diketahui'}",
+                  "Комната ${paket['pemilik_paket']['kamar']['nomor'] ?? 'Неизвестно'}",
                   style: kBoldTextStyle.copyWith(fontSize: 15),
                 ),
                 const SizedBox(height: 5),
                 if ((paket['status_pengambilan'] ?? 'belum') == "belum")
                   Row(
                     children: [
-                      const Icon(
+                      const FaIcon(
                         FontAwesomeIcons.locationPin,
                         size: 18,
                         color: kRed,
                       ),
                       const SizedBox(width: 5),
                       Text(
-                        "Helpdesk",
+                        "Хелпдеск",
                         style: kSemiBoldTextStyle.copyWith(
                             fontSize: 12, color: kRed),
                       )
@@ -70,13 +70,13 @@ class PaketCard extends StatelessWidget {
                 const SizedBox(height: 5),
                 Row(
                   children: [
-                    const Icon(
+                    const FaIcon(
                       FontAwesomeIcons.solidCircleUser,
                       size: 18,
                     ),
                     const SizedBox(width: 5),
                     Text(
-                      paket['pemilik_paket']['nama'] ?? 'Tidak diketahui',
+                      paket['pemilik_paket']['nama'] ?? 'Неизвестно',
                       style: kSemiBoldTextStyle.copyWith(fontSize: 12),
                     )
                   ],
@@ -89,7 +89,7 @@ class PaketCard extends StatelessWidget {
                     Expanded(
                       child: Text(
                         getFormattedDate(paket['waktu_tiba'] ?? '') ??
-                            "Belum diambil",
+                            "Ещё не получена",
                         style: kSemiBoldTextStyle.copyWith(
                             fontSize: 12, color: kGrey),
                       ),
@@ -108,7 +108,7 @@ class PaketCard extends StatelessWidget {
                       const SizedBox(width: 5),
                       Expanded(
                         child: Text(
-                          '${paket['penerima_paket']['nama'] ?? 'Tidak diketahui'} (PJ Paket)',
+                          '${paket['penerima_paket']['nama'] ?? 'Неизвестно'} (ответственный за посылку)',
                           style: kSemiBoldTextStyle.copyWith(
                               fontSize: 12, color: kGrey),
                         ),

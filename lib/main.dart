@@ -21,7 +21,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   tz.initializeTimeZones();
-  await initializeDateFormatting('id_ID');
+  await initializeDateFormatting('ru_RU');
   final cameraService = CameraService();
   await cameraService.initializeCameras();
   final NotificationService notificationService = NotificationService();
@@ -38,7 +38,7 @@ void main() async {
   await FirebaseNotificationService.initialize();
 
   FirebaseMessaging.instance.onTokenRefresh.listen((String fcmToken) async {
-    print('FCM Token refreshed: $fcmToken');
+    print('FCM-токен обновлён: $fcmToken');
     await postTokenFCM(fcmToken);
   });
 

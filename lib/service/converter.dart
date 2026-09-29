@@ -5,12 +5,12 @@ String getFormattedDate(String date) {
   try {
     DateTime parsedDate = DateTime.parse(date);
     String formattedDate =
-        DateFormat('EEEE, d MMMM y', 'id_ID').format(parsedDate);
+        DateFormat('EEEE, d MMMM y', 'ru_RU').format(parsedDate);
 
     return formattedDate;
   } catch (e) {
-    print('Error parsing date: $e');
-    return 'Data tidak valid';
+    print('Ошибка разбора даты: $e');
+    return 'Данные некорректны';
   }
 }
 
@@ -18,12 +18,12 @@ String getFormattedTime() {
   DateTime sekarang = DateTime.now();
   int jam = sekarang.hour;
   if (jam >= 4 && jam < 10) {
-    return 'pagi';
+    return 'Доброе утро';
   } else if (jam >= 10 && jam < 15) {
-    return 'siang';
+    return 'Добрый день';
   } else if (jam >= 15 && jam < 18) {
-    return 'sore';
+    return 'Добрый вечер';
   } else {
-    return 'malam';
+    return 'Доброй ночи';
   }
 }

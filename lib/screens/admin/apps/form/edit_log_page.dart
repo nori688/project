@@ -44,16 +44,16 @@ class _EditLogPageState extends State<EditLogPage> {
             'nama': dormitizen['nama'],
           });
         }
-        print('Data Dormitizen: $dormitizens');
+        print('Проживающие: $dormitizens');
       } else {
         setState(() {
-          error = "Data dormitizen tidak ditemukan.";
+          error = "Проживающий не найден.";
         });
       }
     } catch (e) {
       print(e);
       setState(() {
-        error = "Error: $e";
+        error = "Ошибка: $e";
       });
     } finally {
       setState(() {
@@ -70,7 +70,7 @@ class _EditLogPageState extends State<EditLogPage> {
         inAsyncCall: _showSpinner,
         child: Column(
           children: [
-            const AppBarPage(title: 'Tambah Log Manual'),
+            const AppBarPage(title: 'Добавить запись вручную'),
             Expanded(
                 child: SingleChildScrollView(
               child: Padding(
@@ -88,7 +88,7 @@ class _EditLogPageState extends State<EditLogPage> {
                         inputFormatters: [
                           FilteringTextInputFormatter.digitsOnly,
                         ],
-                        decoration: basicInputDecoration("Nomor kamar").copyWith(
+                        decoration: basicInputDecoration("Номер комнаты").copyWith(
                           suffixIcon: IconButton(
                             onPressed: () async {
                               await searchDormitizen(_kamarController.text);
@@ -98,7 +98,7 @@ class _EditLogPageState extends State<EditLogPage> {
                         ),
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return 'Nomor kamar tidak boleh kosong';
+                            return 'Номер комнаты не может быть пустым';
                           }
                           return null;
                         },
@@ -109,7 +109,7 @@ class _EditLogPageState extends State<EditLogPage> {
                         child: DropdownButtonFormField<String>(
                           style: kMediumTextStyle.copyWith(
                               fontSize: 16, color: Colors.black),
-                          decoration: basicInputDecoration("Pilih Dormitizen"),
+                          decoration: basicInputDecoration("Выберите проживающего"),
                           value: selectedDormitizen,
                           icon: const Icon(Icons.arrow_drop_down),
                           isExpanded: true,
@@ -124,22 +124,22 @@ class _EditLogPageState extends State<EditLogPage> {
                             setState(() {
                               selectedDormitizen = newValue;
                             });
-                            print('Selected Dormitizen: $selectedDormitizen');
+                            print('Выбран проживающий: $selectedDormitizen');
                           },
                         ),
                       ),
                       FormDropDown(
-                        kategoriItems: const ['Masuk', 'Keluar'],
-                        title: 'Status',
+                        kategoriItems: const ['Вход', 'Выход'],
+                        title: 'Статус',
                         onItemSelected: (selectedItem) {
                           // Handle the selected item here
-                          print('Selected item: $selectedItem');
+                          print('Выбран элемент: $selectedItem');
                         },
                       ),
                       FormDatePicker(
                         onDateTimeSelected: (selectedDateTime) {
                           // Handle the combined DateTime here
-                          print('Selected DateTime: $selectedDateTime');
+                          print('Выбранные дата и время: $selectedDateTime');
                         },
                       ),
                       GradientButton(
@@ -150,7 +150,7 @@ class _EditLogPageState extends State<EditLogPage> {
         
                                 // Create the SnackBar
                                 const snackBar = SnackBar(
-                                  content: Text('Data berhasil ditambahkan!'),
+                                  content: Text('Данные успешно добавлены!'),
                                 );
         
                                 // Show the SnackBar
@@ -162,7 +162,7 @@ class _EditLogPageState extends State<EditLogPage> {
                               }
                             }
                           },
-                          title: 'Kirim')
+                          title: 'Отправить')
                     ],
                   ),
                 ),

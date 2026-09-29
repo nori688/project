@@ -1,4 +1,4 @@
-import 'dart:io';
+import 'package:cross_file/cross_file.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -25,7 +25,7 @@ class _AddPaketPageState extends State<AddPaketPage> {
   final List<Map<String, dynamic>> dormitizenDataList = [];
   String error = "";
   String waktu = "";
-  File? gambar;
+  XFile? gambar;
   bool _showSpinner = false;
 
   Future<void> _addPaket() async {
@@ -41,7 +41,7 @@ class _AddPaketPageState extends State<AddPaketPage> {
         'dormitizen_id': selectedDormitizen!,
       };
       response = await postDataTokenWithImage("/paket", data, gambar);
-      print('berhasil tambah laporan!');
+      print('отчёт успешно добавлен!');
       if (mounted) {
         Navigator.pop(context, 'sesuatu');
       }
@@ -52,7 +52,7 @@ class _AddPaketPageState extends State<AddPaketPage> {
         _showSpinner = false;
         error = "${response['message']}";
       });
-      print('Login error: $e');
+      print('Ошибка входа: $e');
       print(response);
     }
     setState(() {
@@ -80,16 +80,16 @@ class _AddPaketPageState extends State<AddPaketPage> {
             'nama': dormitizen['nama'],
           });
         }
-        print('Data Dormitizen: $dormitizens');
+        print('Проживающие: $dormitizens');
       } else {
         setState(() {
-          error = "Data dormitizen tidak ditemukan.";
+          error = "Проживающий не найден.";
         });
       }
     } catch (e) {
       print(e);
       setState(() {
-        error = "Error: $e";
+        error = "Ошибка: $e";
       });
     } finally {
       setState(() {
@@ -106,7 +106,7 @@ class _AddPaketPageState extends State<AddPaketPage> {
         inAsyncCall: _showSpinner,
         child: Column(
           children: [
-            const AppBarPage(title: 'Tambah Paket'),
+            const AppBarPage(title: 'Добавить посылку'),
             Expanded(
                 child: SingleChildScrollView(
               child: Padding(
@@ -131,7 +131,7 @@ class _AddPaketPageState extends State<AddPaketPage> {
                           }
                         },
                         decoration:
-                            basicInputDecoration("Nomor kamar").copyWith(
+                            basicInputDecoration("Номер комнаты").copyWith(
                           suffixIcon: IconButton(
                             onPressed: () async {
                               await searchDormitizen(_kamarController.text);
@@ -141,7 +141,7 @@ class _AddPaketPageState extends State<AddPaketPage> {
                         ),
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return 'Nomor kamar tidak boleh kosong';
+                            return 'Номер комнаты не может быть пустым';
                           }
                           return null;
                         },
@@ -152,7 +152,7 @@ class _AddPaketPageState extends State<AddPaketPage> {
                         child: DropdownButtonFormField<String>(
                           style: kMediumTextStyle.copyWith(
                               fontSize: 16, color: Colors.black),
-                          decoration: basicInputDecoration("Pilih Dormitizen"),
+                          decoration: basicInputDecoration("Выберите проживающего"),
                           value: selectedDormitizen,
                           icon: const Icon(Icons.arrow_drop_down),
                           isExpanded: true,
@@ -167,19 +167,19 @@ class _AddPaketPageState extends State<AddPaketPage> {
                             setState(() {
                               selectedDormitizen = newValue;
                             });
-                            print('Selected Dormitizen: $selectedDormitizen');
+                            print('Выбран проживающий: $selectedDormitizen');
                           },
                         ),
                       ),
                       FormPhotoPicker(
-                        title: 'paket',
+                        title: 'посылка',
                         onImageSelected: (selectedImage) {
                           // Handle the selected image here
                           if (selectedImage != null) {
                             gambar = selectedImage;
-                            print('Selected image path: ${selectedImage.path}');
+                            print('Путь к изображению: ${selectedImage.path}');
                           } else {
-                            print('Image cleared');
+                            print('Изображение удалено');
                           }
                         },
                       ),
@@ -187,7 +187,7 @@ class _AddPaketPageState extends State<AddPaketPage> {
                         onDateTimeSelected: (selectedDateTime) {
                           // Handle the combined DateTime here
                           waktu = selectedDateTime.toString();
-                          print('Selected DateTime: $selectedDateTime');
+                          print('Выбранные дата и время: $selectedDateTime');
                         },
                       ),
                       GradientButton(
@@ -197,20 +197,20 @@ class _AddPaketPageState extends State<AddPaketPage> {
                                   gambar == null ||
                                   waktu.isEmpty) {
                                 setState(() {
-                                  error = "Semua field harus diisi!";
+                                  error = "Заполните все поля!";
                                 });
                                 print(
-                                    'Selected Dormitizen: $selectedDormitizen');
-                                print('Selected Image: $gambar');
+                                    'Выбран проживающий: $selectedDormitizen');
+                                print('Выбранное изображение: $gambar');
                                 return;
                               } else {
                                 print(
-                                    'Selected Dormitizen: $selectedDormitizen');
-                                print('Selected Image: $gambar');
+                                    'Выбран проживающий: $selectedDormitizen');
+                                print('Выбранное изображение: $gambar');
                                 await _addPaket();
                               }
                               const snackBar = SnackBar(
-                                content: Text('Data berhasil ditambahkan!'),
+                                content: Text('Данные успешно добавлены!'),
                               );
 
                               // Show the SnackBar
@@ -218,7 +218,7 @@ class _AddPaketPageState extends State<AddPaketPage> {
                                   .showSnackBar(snackBar);
                             }
                           },
-                          title: 'Kirim')
+                          title: 'Отправить')
                     ],
                   ),
                 ),

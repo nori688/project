@@ -50,12 +50,12 @@ class LogBox extends StatelessWidget {
                             style: kMediumTextStyle.copyWith(
                                 fontSize: 12, color: Colors.black),
                             children: [
-                          const TextSpan(text: 'Aktivitas '),
+                          const TextSpan(text: 'Активность '),
                           TextSpan(
-                              text: (type == 'masuk') ? 'Masuk' : 'Keluar',
+                              text: (type == 'masuk') ? 'Вход' : 'Выход',
                               style: kBoldTextStyle.copyWith(
                                   fontSize: 14, color: kRed)),
-                          const TextSpan(text: ' asrama'),
+                          const TextSpan(text: ' общежитие'),
                         ])),
                     Row(
                       children: [
@@ -65,7 +65,7 @@ class LogBox extends StatelessWidget {
                         ),
                         const SizedBox(width: 5),
                         Text(
-                          "${date.day.toString()} ${DateFormat('MMMM').format(DateTime(0, date.month))} ${date.year} - ${date.hour}:${date.minute}",
+                          "${date.day.toString()} ${DateFormat('MMMM', 'ru_RU').format(DateTime(0, date.month))} ${date.year} - ${date.hour}:${date.minute}",
                           style: const TextStyle(fontSize: 10),
                         ),
                       ],
@@ -87,7 +87,7 @@ class LogBox extends StatelessWidget {
                       children: [
                         Icon(Icons.edit, color: kWhite),
                         Text(
-                          "Ubah",
+                          "Изменить",
                           style: TextStyle(
                               color: kWhite, fontWeight: FontWeight.w600),
                         )

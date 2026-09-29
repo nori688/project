@@ -1,4 +1,4 @@
-import 'dart:io';
+import 'package:cross_file/cross_file.dart';
 import 'dart:developer' as dev;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -37,14 +37,14 @@ class _EditPelanggaranPageState extends State<EditPelanggaranPage> {
   final TextEditingController _DormitizenController = TextEditingController();
   final TextEditingController _kamarController = TextEditingController();
   final TextEditingController _waktuController = TextEditingController();
-  File? gambar;
+  XFile? gambar;
   final List<Map<String, dynamic>> dormitizenDataList = [];
   final _formKey = GlobalKey<FormState>();
   String waktu = "";
   String? selectedKategori;
 
   String error = "";
-  String infoSnackbar = "Pelanggaran berhasil diubah!";
+  String infoSnackbar = "Нарушение успешно изменено!";
   bool _showSpinner = false;
 
   @override
@@ -68,34 +68,34 @@ class _EditPelanggaranPageState extends State<EditPelanggaranPage> {
     });
     dynamic response = {};
     try {
-      dev.log('gambar: ${gambar?.path}');
+      dev.log('изображение: ${gambar?.path}');
       Map<String, String> data = {
         'kategori': selectedKategori!,
         'waktu': waktu,
         'dormitizen_id': widget.dormitizenId,
       };
-      dev.log('Data to be sent: $data');
-      dev.log('Pelanggaran ID: ${widget.pelanggaranId}');
+      dev.log('Отправляемые данные: $data');
+      dev.log('ID нарушения: ${widget.pelanggaranId}');
       response = await updateDataTokenWithFile(
           "/pelanggaran/${widget.pelanggaranId}", data, gambar);
-      dev.log('Response from edit pelanggaran: $response');
+      dev.log('Ответ на изменение нарушения: $response');
       if (mounted) {
         setState(() {
-          infoSnackbar = 'Pelanggaran berhasil diubah!';
+          infoSnackbar = 'Нарушение успешно изменено!';
         });
       } else {
         setState(() {
-          infoSnackbar = 'Gagal merubah pelanggaran';
+          infoSnackbar = 'Не удалось изменить нарушение';
         });
       }
       print(response['message']);
     } catch (e) {
       setState(() {
         _showSpinner = false;
-        infoSnackbar = 'Pelanggaran gagal diubah!';
+        infoSnackbar = 'Не удалось изменить нарушение!';
         error = "${response['message']}";
       });
-      print('Login error: $e');
+      print('Ошибка входа: $e');
       print(response);
     }
     setState(() {
@@ -111,7 +111,7 @@ class _EditPelanggaranPageState extends State<EditPelanggaranPage> {
         inAsyncCall: _showSpinner,
         child: Column(
           children: [
-            const AppBarPage(title: 'Edit Pelanggaran'),
+            const AppBarPage(title: 'Изменить нарушение'),
             Expanded(
               child: SingleChildScrollView(
                 child: Padding(
@@ -128,7 +128,7 @@ class _EditPelanggaranPageState extends State<EditPelanggaranPage> {
                             FilteringTextInputFormatter.digitsOnly,
                           ],
                           decoration:
-                              basicInputDecoration("Nomor kamar").copyWith(),
+                              basicInputDecoration("Номер комнаты").copyWith(),
                         ),
                         const SizedBox(height: 12),
                         Padding(
@@ -137,19 +137,19 @@ class _EditPelanggaranPageState extends State<EditPelanggaranPage> {
                             enabled: false,
                             controller: _DormitizenController,
                             decoration:
-                                basicInputDecoration("Dormitizen").copyWith(),
+                                basicInputDecoration("Проживающий").copyWith(),
                           ),
                         ),
                         FormDropDown(
-                          title: 'Kategori',
+                          title: 'Категория',
                           kategoriItems: const [
-                            'Rokok',
-                            'Terlambat',
-                            'Vape',
-                            'Alkohol',
-                            'Barang Terlarang',
-                            'Membawa Lawan Jenis ke dalam Kamar',
-                            'Membawa Teman dari luar Gedung Asrama',
+                            'Курение',
+                            'Опоздание',
+                            'Вейп',
+                            'Алкоголь',
+                            'Запрещённые предметы',
+                            'Нахождение с лицом противоположного пола в комнате',
+                            'Приглашение гостей извне общежития',
                           ],
                           onItemSelected: (selectedItem) {
                             selectedKategori = selectedItem;
@@ -164,16 +164,16 @@ class _EditPelanggaranPageState extends State<EditPelanggaranPage> {
                           },
                         ),
                         FormPhotoPicker(
-                          title: 'Pelanggaran',
+                          title: 'нарушение',
                           onImageSelected: (selectedImage) {
                             if (selectedImage != null) {
                               print(
-                                  'Selected image path: ${selectedImage.path}');
+                                  'Путь к изображению: ${selectedImage.path}');
                               setState(() {
                                 gambar = selectedImage;
                               });
                             } else {
-                              print('Image cleared');
+                              print('Изображение удалено');
                             }
                           },
                         ),
@@ -198,10 +198,10 @@ class _EditPelanggaranPageState extends State<EditPelanggaranPage> {
                                 }
                               } else {}
                             } else {
-                              print('Form is invalid');
+                              print('Форма недействительна');
                             }
                           },
-                          title: 'Simpan Perubahan',
+                          title: 'Сохранить изменения',
                         ),
                       ],
                     ),

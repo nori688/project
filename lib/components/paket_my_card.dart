@@ -46,21 +46,21 @@ class MyPaketCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  paket['pemilik_paket']['nama'] ?? 'Tidak diketahui',
+                  paket['pemilik_paket']['nama'] ?? 'Неизвестно',
                   style: kBoldTextStyle.copyWith(fontSize: 15),
                 ),
                 const SizedBox(height: 5),
                 if ((paket['status_pengambilan'] ?? 'belum') == "belum")
                   Row(
                     children: [
-                      const Icon(
+                      const FaIcon(
                         FontAwesomeIcons.locationPin,
                         size: 18,
                         color: kRed,
                       ),
                       const SizedBox(width: 5),
                       Text(
-                        "Helpdesk",
+                        "Хелпдеск",
                         style: kSemiBoldTextStyle.copyWith(
                             fontSize: 12, color: kRed),
                       )
@@ -74,7 +74,7 @@ class MyPaketCard extends StatelessWidget {
                     Expanded(
                       child: Text(
                         getFormattedDate(paket['waktu_tiba'] ?? '') ??
-                            "Belum diambil",
+                            "Ещё не получена",
                         style: kSemiBoldTextStyle.copyWith(
                             fontSize: 12, color: kGrey),
                       ),
@@ -93,7 +93,7 @@ class MyPaketCard extends StatelessWidget {
                       const SizedBox(width: 5),
                       Expanded(
                         child: Text(
-                          '${paket['penerima_paket']['nama'] ?? 'Tidak diketahui'} (PJ Paket)',
+                          '${paket['penerima_paket']['nama'] ?? 'Неизвестно'} (ответственный за посылку)',
                           style: kSemiBoldTextStyle.copyWith(
                               fontSize: 12, color: kGrey),
                         ),

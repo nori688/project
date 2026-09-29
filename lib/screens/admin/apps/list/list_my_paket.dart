@@ -32,7 +32,7 @@ class _ListMyPaketPageState extends State<ListMyPaketPage> {
 
   String formatTanggal(String tanggal) {
     DateTime dateTime = DateTime.parse(tanggal).toLocal();
-    return DateFormat('dd MMM yyyy, HH:mm').format(dateTime);
+    return DateFormat('dd MMM yyyy, HH:mm', 'ru_RU').format(dateTime);
   }
 
   Future<void> getPaket() async {
@@ -53,7 +53,7 @@ class _ListMyPaketPageState extends State<ListMyPaketPage> {
               .map((item) => item as Map<String, dynamic>)
               .toList();
         });
-        print('Data Paket: $pakets');
+        print('Посылки: $pakets');
 
         for (int i = 0; i < pakets.length; i++) {
           if (pakets[i]["status_pengambilan"] == "belum") {
@@ -64,13 +64,13 @@ class _ListMyPaketPageState extends State<ListMyPaketPage> {
         }
       } else {
         setState(() {
-          error = "Data paket dormitizen kosong.";
+          error = "Нет данных о посылках.";
         });
       }
     } catch (e) {
       print(e);
       setState(() {
-        error = "Error: $e";
+        error = "Ошибка: $e";
       });
     }
     setState(() {
@@ -126,7 +126,7 @@ class _ListMyPaketPageState extends State<ListMyPaketPage> {
                   Positioned(
                     bottom: 8,
                     left: 8,
-                    child: Text("Ketuk untuk memperbesar",
+                    child: Text("Нажмите, чтобы увеличить",
                         style: kSemiBoldTextStyle.copyWith(
                             fontSize: 12, color: kWhite)),
                   ),
@@ -141,7 +141,7 @@ class _ListMyPaketPageState extends State<ListMyPaketPage> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  const Icon(
+                  const FaIcon(
                     FontAwesomeIcons.locationPin,
                     size: 18,
                     color: kRed,
@@ -150,7 +150,7 @@ class _ListMyPaketPageState extends State<ListMyPaketPage> {
                   
                     Expanded(
                         child: Text(
-                      "Helpdesk",
+                      "Хелпдеск",
                       style: kSemiBoldTextStyle.copyWith(
                           fontSize: 12, color: kRed),
                     ))
@@ -162,7 +162,7 @@ class _ListMyPaketPageState extends State<ListMyPaketPage> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Icon(
+                  const FaIcon(
                     FontAwesomeIcons.solidCircleUser,
                     size: 18,
                   ),
@@ -170,7 +170,7 @@ class _ListMyPaketPageState extends State<ListMyPaketPage> {
                   if (paket['penerima_paket']['nama'] != null)
                     Expanded(
                       child: Text(
-                        "${paket['penerima_paket']['nama']} (Pj Penerimaan)",
+                        "${paket['penerima_paket']['nama']} (ответственный за приём)",
                         style: kSemiBoldTextStyle.copyWith(fontSize: 12),
                       ),
                     )
@@ -180,7 +180,7 @@ class _ListMyPaketPageState extends State<ListMyPaketPage> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    const Icon(
+                    const FaIcon(
                       FontAwesomeIcons.solidCircleUser,
                       size: 18,
                     ),
@@ -188,7 +188,7 @@ class _ListMyPaketPageState extends State<ListMyPaketPage> {
                     if (paket['penyerah_paket']['nama'] != null)
                       Expanded(
                         child: Text(
-                          "${paket['penyerah_paket']['nama']} (Pj Penerimaan)",
+                          "${paket['penyerah_paket']['nama']} (ответственный за приём)",
                           style: kSemiBoldTextStyle.copyWith(fontSize: 12),
                         ),
                       )
@@ -205,7 +205,7 @@ class _ListMyPaketPageState extends State<ListMyPaketPage> {
                     size: 18,
                   ),
                   const SizedBox(width: 5),
-                  Expanded(child: Text("${formatTanggal(paket['waktu_tiba'])} (Diterima)")),
+                  Expanded(child: Text("${formatTanggal(paket['waktu_tiba'])} (получена)")),
                 ],
               ),
               if (paket['status_pengambilan'] == "sudah")
@@ -223,7 +223,7 @@ class _ListMyPaketPageState extends State<ListMyPaketPage> {
                     const SizedBox(width: 5),
                     Expanded(
                       child: Text(
-                          "${formatTanggal(paket['waktu_diambil'])} (Diserahkan)"),
+                          "${formatTanggal(paket['waktu_diambil'])} (вручена)"),
                     ),
                   ],
                 ),
@@ -242,7 +242,7 @@ class _ListMyPaketPageState extends State<ListMyPaketPage> {
           child: Column(
             children: [
               const AppBarPage(
-                title: 'My Paket',
+                title: 'Мои посылки',
               ),
               Padding(
                 padding:
@@ -252,7 +252,7 @@ class _ListMyPaketPageState extends State<ListMyPaketPage> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Text(
-                      'Paket belum diambil :',
+                      'Посылки не получены:',
                       style: kBoldTextStyle.copyWith(fontSize: 14),
                     ),
                     const SizedBox(
@@ -280,7 +280,7 @@ class _ListMyPaketPageState extends State<ListMyPaketPage> {
                       height: 10,
                     ),
                     Text(
-                      'Paket sudah diambil :',
+                      'Посылки получены:',
                       style: kBoldTextStyle.copyWith(fontSize: 14),
                     ),
                     (_showSpinner)

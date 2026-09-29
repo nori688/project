@@ -17,7 +17,7 @@ class CameraService {
     try {
       _availableCameras = availableCameras;
     } catch (e) {
-      print("Error initializing cameras: $e");
+      print("Ошибка инициализации камер: $e");
       dev.log('$e');
     }
   }
@@ -32,7 +32,7 @@ class CameraService {
     try {
       await _cameraController?.initialize();
     } catch (e) {
-      print("Error starting camera preview: $e");
+      print("Ошибка запуска предпросмотра камеры: $e");
       dev.log('$e');
     }
   }

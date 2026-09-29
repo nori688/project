@@ -17,9 +17,9 @@ class _HomeCarouselState extends State<HomeCarousel> {
   PageController pageController =
       PageController(initialPage: 99, viewportFraction: 0.8);
   List<InformationModel> informations = [
-    InformationModel('Pengurasan Air', '11 November 2023', kGradientBlue),
-    InformationModel('Welcoming Party', '12 Desember 2023', kGradientGreen),
-    InformationModel('Meet', '26 Desember 2023', kGradientOrange),
+    InformationModel('Слив воды', '11 ноября 2023', kGradientBlue),
+    InformationModel('Приветственная вечеринка', '12 декабря 2023', kGradientGreen),
+    InformationModel('Встреча', '26 декабря 2023', kGradientOrange),
   ];
   Timer? _carouselTimer; // Menyimpan referensi ke Timer
 

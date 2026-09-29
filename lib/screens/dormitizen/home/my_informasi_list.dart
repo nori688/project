@@ -53,7 +53,7 @@ class _MyListInformasiPageState extends State<MyListInformasiPage> {
     } catch (e) {
       print(e);
       setState(() {
-        error = "Error: $e";
+        error = "Ошибка: $e";
       });
     } finally {
       setState(() {
@@ -81,7 +81,7 @@ class _MyListInformasiPageState extends State<MyListInformasiPage> {
       body: Column(
         children: [
           const AppBarPage(
-            title: 'Informasi',
+            title: 'Информация',
           ),
           Padding(
             padding: const EdgeInsets.fromLTRB(30, 20, 30, 0),
@@ -103,7 +103,7 @@ class _MyListInformasiPageState extends State<MyListInformasiPage> {
                             child: TextField(
                           controller: _searchController,
                           decoration: const InputDecoration(
-                              hintText: 'cari judul',
+                              hintText: 'поиск по заголовку',
                               border: InputBorder.none,
                               isDense: true),
                           onChanged: (value) {

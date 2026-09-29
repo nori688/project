@@ -32,13 +32,13 @@ class _NotificationPageAdminState extends State<NotificationPageAdmin> {
       List<Map<String, dynamic>> parsedData = (response['data'] as List)
           .map((item) => item as Map<String, dynamic>)
           .toList();
-      dev.log("Data Notifikasi: $parsedData");
+      dev.log("Уведомления: $parsedData");
       setState(() {
         notifications = parsedData;
         _showSpinner = false;
       });
     } catch (e) {
-      error = "Error: $e";
+      error = "Ошибка: $e";
     } finally {
       _showSpinner = false;
     }
@@ -49,19 +49,19 @@ class _NotificationPageAdminState extends State<NotificationPageAdmin> {
     Duration diff = DateTime.now().difference(createdTime);
 
     if (diff.inSeconds < 60) {
-      return '${diff.inSeconds} detik lalu';
+      return '${diff.inSeconds} сек. назад';
     } else if (diff.inMinutes < 60) {
-      return '${diff.inMinutes} menit lalu';
+      return '${diff.inMinutes} мин. назад';
     } else if (diff.inHours < 24) {
-      return '${diff.inHours} jam lalu';
+      return '${diff.inHours} ч назад';
     } else if (diff.inDays < 7) {
-      return '${diff.inDays} hari lalu';
+      return '${diff.inDays} дн. назад';
     } else if (diff.inDays < 30) {
-      return '${(diff.inDays / 7).floor()} minggu lalu';
+      return '${(diff.inDays / 7).floor()} нед. назад';
     } else if (diff.inDays < 365) {
-      return '${(diff.inDays / 30).floor()} bulan lalu';
+      return '${(diff.inDays / 30).floor()} мес. назад';
     } else {
-      return '${(diff.inDays / 365).floor()} tahun lalu';
+      return '${(diff.inDays / 365).floor()} г. назад';
     }
   }
 
@@ -69,7 +69,7 @@ class _NotificationPageAdminState extends State<NotificationPageAdmin> {
   Widget build(BuildContext context) {
     return Column(children: [
       const AppBarPage(
-        title: 'Notifikasi',
+        title: 'Уведомления',
         canBack: false,
       ),
       if (_showSpinner)
@@ -91,7 +91,7 @@ class _NotificationPageAdminState extends State<NotificationPageAdmin> {
                 color: kRed,
               ),
               const SizedBox(height: 25),
-              Text("Tidak ada riwayat notifikasi",
+              Text("Нет истории уведомлений",
                   style: kMediumTextStyle.copyWith(color: Colors.black)),
             ],
           ),

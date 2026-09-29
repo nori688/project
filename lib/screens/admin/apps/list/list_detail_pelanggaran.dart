@@ -43,7 +43,7 @@ class _ListDetailPelanggaranPageState extends State<ListDetailPelanggaranPage> {
 
   String formatTanggal(String tanggal) {
     DateTime dateTime = DateTime.parse(tanggal).toLocal();
-    return DateFormat('dd MMM yyyy • HH:mm').format(dateTime);
+    return DateFormat('dd MMM yyyy • HH:mm', 'ru_RU').format(dateTime);
   }
 
   Future<void> getPelanggaranByUserId() async {
@@ -62,7 +62,7 @@ class _ListDetailPelanggaranPageState extends State<ListDetailPelanggaranPage> {
     } catch (e) {
       print(e);
       setState(() {
-        error = "Error: $e";
+        error = "Ошибка: $e";
       });
     } finally {
       setState(() {
@@ -77,7 +77,7 @@ class _ListDetailPelanggaranPageState extends State<ListDetailPelanggaranPage> {
     });
     try {
       var response = await deleteDataToken('/pelanggaran/$pelanggaranId');
-      if (response['message'] == 'Pelanggaran berhasil dihapus') {
+      if (response['message'] == 'Нарушение успешно удалено') {
         setState(() {
           pelanggarans.removeWhere(
               (pelanggaran) => pelanggaran['pelanggaran_id'] == pelanggaranId);
@@ -85,13 +85,13 @@ class _ListDetailPelanggaranPageState extends State<ListDetailPelanggaranPage> {
         Navigator.pop(context);
       } else {
         setState(() {
-          error = "Gagal menghapus pelanggaran";
+          error = "Не удалось удалить нарушение";
         });
       }
     } catch (e) {
       print(e);
       setState(() {
-        error = "Error: $e";
+        error = "Ошибка: $e";
       });
     } finally {
       setState(() {
@@ -105,14 +105,14 @@ class _ListDetailPelanggaranPageState extends State<ListDetailPelanggaranPage> {
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: const Text('Konfirmasi Hapus'),
+          title: const Text('Подтверждение удаления'),
           backgroundColor: kWhite,
           content: SizedBox(
             width: double.maxFinite,
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                const Text('Ingin menghapus pelanggaran ini?'),
+                const Text('Удалить это нарушение?'),
                 const SizedBox(height: 10),
                 Row(
                   children: [
@@ -121,7 +121,7 @@ class _ListDetailPelanggaranPageState extends State<ListDetailPelanggaranPage> {
                         ontap: () {
                           _deletePelanggaran(pelanggaranId);
                         },
-                        title: "IYA",
+                        title: "ДА",
                       ),
                     ),
                     const SizedBox(width: 10),
@@ -130,7 +130,7 @@ class _ListDetailPelanggaranPageState extends State<ListDetailPelanggaranPage> {
                         ontap: () {
                           Navigator.pop(context);
                         },
-                        title: "TIDAK",
+                        title: "НЕТ",
                       ),
                     ),
                   ],
@@ -150,7 +150,7 @@ class _ListDetailPelanggaranPageState extends State<ListDetailPelanggaranPage> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           AppBarPage(
-            title: 'Detail Pelanggaran',
+            title: 'Детали нарушения',
             onAdd: () async {
               final result = await Navigator.push(
                 context,
@@ -181,7 +181,7 @@ class _ListDetailPelanggaranPageState extends State<ListDetailPelanggaranPage> {
           else if (pelanggarans.isEmpty)
             Center(
               child: Text(
-                "Tidak ada pelanggaran yang ditemukan",
+                "Нарушения не найдены",
                 style: kMediumTextStyle.copyWith(color: Colors.grey),
               ),
             )
@@ -191,7 +191,7 @@ class _ListDetailPelanggaranPageState extends State<ListDetailPelanggaranPage> {
             Padding(
               padding: const EdgeInsets.only(left: 32, top: 12),
               child: Text(
-                "List Pelanggaran ${pelanggarans[0]['pelanggar']['nama']} ",
+                "Список нарушений: ${pelanggarans[0]['pelanggar']['nama']} ",
                 style: kBoldTextStyle,
               ),
             ),
@@ -253,13 +253,13 @@ class _ListDetailPelanggaranPageState extends State<ListDetailPelanggaranPage> {
                             ],
                           ),
                           const SizedBox(height: 4),
-                          Text("Kamar: ${widget.noKamar}",
+                          Text("Комната: ${widget.noKamar}",
                               style: kMediumTextStyle.copyWith(fontSize: 15)),
                           const SizedBox(height: 4),
-                          Text("Kategori: ${pelanggaran['kategori']}",
+                          Text("Категория: ${pelanggaran['kategori']}",
                               style: kMediumTextStyle.copyWith(fontSize: 15)),
                           const SizedBox(height: 4),
-                          Text("Bukti:",
+                          Text("Доказательство:",
                               style: kMediumTextStyle.copyWith(fontSize: 15)),
                           const SizedBox(height: 4),
                           ClipRRect(
@@ -305,7 +305,7 @@ class _ListDetailPelanggaranPageState extends State<ListDetailPelanggaranPage> {
                               padding: const EdgeInsets.all(15.0),
                               child: Row(
                                 children: [
-                                  const Icon(
+                                  const FaIcon(
                                     FontAwesomeIcons.pencil,
                                     size: 16,
                                     color: kWhite,
@@ -314,7 +314,7 @@ class _ListDetailPelanggaranPageState extends State<ListDetailPelanggaranPage> {
                                     width: 5,
                                   ),
                                   Text(
-                                    "Edit",
+                                    "Изменить",
                                     style: kBoldTextStyle.copyWith(
                                         color: kWhite, fontSize: 16),
                                   ),

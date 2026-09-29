@@ -17,16 +17,16 @@ class ProfilPageAdmin extends StatefulWidget {
 }
 
 class _ProfilPageDromitizenState extends State<ProfilPageAdmin> {
-  String NIM = ' loading...';
-  String status = 'loading...';
-  String nama = 'loading...';
-  String username = 'loading...';
-  String prodi = 'loading...';
-  String agama = 'loading...';
-  String noHP = 'loading...';
-  String noHPOrtu = 'loading...';
-  String gedung = 'loading...';
-  String noKamar = 'loading...';
+  String NIM = ' загрузка...';
+  String status = 'загрузка...';
+  String nama = 'загрузка...';
+  String username = 'загрузка...';
+  String prodi = 'загрузка...';
+  String agama = 'загрузка...';
+  String noHP = 'загрузка...';
+  String noHPOrtu = 'загрузка...';
+  String gedung = 'загрузка...';
+  String noKamar = 'загрузка...';
   String error = "";
   String? role;
   bool _showSpinner = false;
@@ -69,10 +69,10 @@ class _ProfilPageDromitizenState extends State<ProfilPageAdmin> {
     } catch (e) {
       setState(() {
         _showSpinner = false;
-        error = "Email atau Password salah";
+        error = "Неверный email или пароль";
       });
       error = "${response['message']}";
-      print('Login error: $e');
+      print('Ошибка входа: $e');
       print(response);
     }
     setState(() {
@@ -94,7 +94,7 @@ class _ProfilPageDromitizenState extends State<ProfilPageAdmin> {
       String? tokenFirebaseNotification =
           await FirebaseNotificationService.getToken();
       await deleteTokenFCM(tokenFirebaseNotification);
-      print('Firebase token: $tokenFirebaseNotification berhasil dihapus');
+      print('Firebase-токен: $tokenFirebaseNotification успешно удалён');
       String? token = await getToken();
       response = await logout(token!);
       await removeToken();
@@ -105,7 +105,7 @@ class _ProfilPageDromitizenState extends State<ProfilPageAdmin> {
           (Route<dynamic> route) => false,
         );
       }
-      print('berhasil logout!');
+      print('успешный выход!');
       String? accessToken = await getToken();
       String? role = await getRole();
       print(accessToken);
@@ -113,10 +113,10 @@ class _ProfilPageDromitizenState extends State<ProfilPageAdmin> {
     } catch (e) {
       setState(() {
         _showSpinner = false;
-        error = "Email atau Password salah";
+        error = "Неверный email или пароль";
       });
       error = "${response['message']}";
-      print('Login error: $e');
+      print('Ошибка входа: $e');
       print(response);
     }
     setState(() {
@@ -153,7 +153,7 @@ class _ProfilPageDromitizenState extends State<ProfilPageAdmin> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Profil',
+                      'Профиль',
                       style:
                           kBoldTextStyle.copyWith(color: kWhite, fontSize: 20),
                     ),
@@ -191,25 +191,25 @@ class _ProfilPageDromitizenState extends State<ProfilPageAdmin> {
                   child: Column(
                     children: [
                       ProfileDesc(title: 'NIM', value: NIM),
-                      ProfileDesc(title: 'Status', value: status),
+                      ProfileDesc(title: 'Статус', value: status),
                       if (!(role == 'helpdesk'))
-                        ProfileDesc(title: 'Prodi', value: prodi),
+                        ProfileDesc(title: 'Направление', value: prodi),
                       if (!(role == 'helpdesk'))
-                        ProfileDesc(title: 'Agama', value: agama),
+                        ProfileDesc(title: 'Религия', value: agama),
                       if (!(role == 'helpdesk'))
-                        ProfileDesc(title: 'No HP', value: noHP),
+                        ProfileDesc(title: 'Телефон', value: noHP),
                       if (!(role == 'helpdesk'))
-                        ProfileDesc(title: 'No HP Ortu', value: noHPOrtu),
-                      ProfileDesc(title: 'Gedung', value: gedung),
+                        ProfileDesc(title: 'Телефон родителей', value: noHPOrtu),
+                      ProfileDesc(title: 'Корпус', value: gedung),
                       if (!(role == 'helpdesk'))
-                        ProfileDesc(title: 'No kamar', value: noKamar),
+                        ProfileDesc(title: 'Комната', value: noKamar),
                     ],
                   ),
                 ),
                 ShadowContainer(
                   onTap: () {
-                    confirmDialog(context, "Konfirmasi Logout",
-                        "Apakah anda yakin ingin logout?", () {
+                    confirmDialog(context, "Подтверждение выхода",
+                        "Вы уверены, что хотите выйти?", () {
                       _logout();
                     });
                   },
@@ -223,7 +223,7 @@ class _ProfilPageDromitizenState extends State<ProfilPageAdmin> {
                         width: 12,
                       ),
                       Text(
-                        'Keluar',
+                        'Выход',
                         style: kSemiBoldTextStyle.copyWith(
                             fontSize: 14, color: kMain),
                       )
